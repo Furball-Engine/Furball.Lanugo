@@ -1,3 +1,5 @@
+using System;
+
 namespace Furball.Lanugo {
 
     public struct Guid {
@@ -78,5 +80,48 @@ namespace Furball.Lanugo {
 
         public uint  PixelShaderVersion;
         public float MaxPixelShaderValue;// max value of pixel shader arithmetic component
+    }
+
+    public struct LargeInteger {
+        public uint LowPart;
+        public int  HighPart;
+    }
+
+    public struct D3DADAPTER_IDENTIFIER8 {
+        public unsafe fixed byte         Driver[512];
+        public unsafe fixed byte         Description[512];
+        public              LargeInteger DriverVersion;
+        public              uint         VendorId;
+        public              uint         DeviceId;
+        public              uint         SubSysId;
+        public              uint         Revision;
+        public              Guid         DeviceIdentifier;
+        public              uint         WHQLLevel;
+    }
+
+    public struct D3DDISPLAYMODE {
+        public uint      Width;
+        public uint      Height;
+        public uint      RefreshRate;
+        public D3DFORMAT Format;
+    }
+
+    public struct D3DPRESENT_PARAMETERS {
+        public uint      BackBufferWidth;
+        public uint      BackBufferHeight;
+        public D3DFORMAT BackBufferFormat;
+        public uint      BackBufferCount;
+
+        public D3DMULTISAMPLE_TYPE MultiSampleType;
+
+        public D3DSWAPEFFECT SwapEffect;
+        public IntPtr        hDeviceWindow;
+        public int           Windowed;
+        public int           EnableAutoDepthStencil;
+        public D3DFORMAT     AutoDepthStencilFormat;
+        public uint          Flags;
+
+        public uint FullScreen_RefreshRateInHz;
+        public uint FullScreen_PresentationInterval;
     }
 }
