@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Furball.Lanugo", "Furball.Lanugo\Furball.Lanugo.csproj", "{4CE6598A-A477-4525-9ECA-D64AD603836F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Furball.Lanugo.TestApplication", "Furball.Lanugo.TestApplication\Furball.Lanugo.TestApplication.csproj", "{A2259D10-B030-4D8A-B3F0-956E1BD81A6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Furball.Lanugo", "Furball.Lanugo\Furball.Lanugo.csproj", "{CE2D5317-D64C-4D3F-B0C4-DC72AF4A2105}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +10,13 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4CE6598A-A477-4525-9ECA-D64AD603836F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4CE6598A-A477-4525-9ECA-D64AD603836F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4CE6598A-A477-4525-9ECA-D64AD603836F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4CE6598A-A477-4525-9ECA-D64AD603836F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2259D10-B030-4D8A-B3F0-956E1BD81A6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2259D10-B030-4D8A-B3F0-956E1BD81A6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2259D10-B030-4D8A-B3F0-956E1BD81A6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2259D10-B030-4D8A-B3F0-956E1BD81A6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE2D5317-D64C-4D3F-B0C4-DC72AF4A2105}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE2D5317-D64C-4D3F-B0C4-DC72AF4A2105}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE2D5317-D64C-4D3F-B0C4-DC72AF4A2105}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE2D5317-D64C-4D3F-B0C4-DC72AF4A2105}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

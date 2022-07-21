@@ -1,18 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <LangVersion>9</LangVersion>
+        <OutputType>Exe</OutputType>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <TargetFrameworks>net461;net5.0</TargetFrameworks>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <PlatformTarget>x86</PlatformTarget>
       <Prefer32bit>true</Prefer32bit>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.6.0" />
+      <ProjectReference Include="..\Furball.Lanugo\Furball.Lanugo.csproj" />
     </ItemGroup>
 
 </Project>
