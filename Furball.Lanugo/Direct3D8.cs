@@ -106,14 +106,14 @@ namespace Furball.Lanugo {
             adapterCount = GetAdapterCount();
         }
 
-        public static int GetAdapterIdentifer(uint adapter, uint flags, out D3DADAPTER_IDENTIFIER8 adapterIdentifer) {
+        public static D3DRESULT GetAdapterIdentifer(uint adapter, uint flags, out D3DADAPTER_IDENTIFIER8 adapterIdentifer) {
             D3DADAPTER_IDENTIFIER8 ptrIdentifer = new D3DADAPTER_IDENTIFIER8();
 
             int ret = _getAdapterIdentifierDelegate(_d3d8, adapter, flags, &ptrIdentifer);
 
             adapterIdentifer = ptrIdentifer;
 
-            return ret;
+            return (D3DRESULT) ret;
         }
 
         public static uint GetAdapterModeCount(uint adapter) {
@@ -124,24 +124,24 @@ namespace Furball.Lanugo {
             adapterModeCount = GetAdapterModeCount(adapter);
         }
 
-        public static int EnumAdapterModes(uint adapter, uint mode, out D3DDISPLAYMODE displayMode) {
+        public static D3DRESULT EnumAdapterModes(uint adapter, uint mode, out D3DDISPLAYMODE displayMode) {
             D3DDISPLAYMODE ptrDisplayMode = new D3DDISPLAYMODE();
 
             int ret = _enumAdapterModesDelegate(_d3d8, adapter, mode, &ptrDisplayMode);
 
             displayMode = ptrDisplayMode;
 
-            return ret;
+            return (D3DRESULT) ret;
         }
 
-        public static int GetAdapterDisplayMode(uint adapter, out D3DDISPLAYMODE displayMode) {
+        public static D3DRESULT GetAdapterDisplayMode(uint adapter, out D3DDISPLAYMODE displayMode) {
             D3DDISPLAYMODE ptrDisplayMode = new D3DDISPLAYMODE();
 
             int ret = _getAdapterDisplayModeDelegate(_d3d8, adapter, &ptrDisplayMode);
 
             displayMode = ptrDisplayMode;
 
-            return ret;
+            return (D3DRESULT) ret;
         }
         /// <summary>
         /// This method verifies whether a certain device type can be used on this adapter and expect hardware acceleration using the given formats.
@@ -152,8 +152,8 @@ namespace Furball.Lanugo {
         /// <param name="backBufferFormat">Back buffer Format to Check</param>
         /// <param name="windowed">Indicator whether to check for Windowed or Fullscreen</param>
         /// <returns>If everything's supported as is, 0</returns>
-        public static int CheckDeviceType(uint adapter, D3DDEVTYPE checkType, D3DFORMAT displayFormat, D3DFORMAT backBufferFormat, bool windowed) {
-            return _checkDeviceTypeDelegate(_d3d8, adapter, checkType, displayFormat, backBufferFormat, windowed);
+        public static D3DRESULT CheckDeviceType(uint adapter, D3DDEVTYPE checkType, D3DFORMAT displayFormat, D3DFORMAT backBufferFormat, bool windowed) {
+            return (D3DRESULT) _checkDeviceTypeDelegate(_d3d8, adapter, checkType, displayFormat, backBufferFormat, windowed);
         }
         /// <summary>
         /// Checks if a particular format is supported by the hardware for the designated purpose supplied in rType
@@ -165,8 +165,8 @@ namespace Furball.Lanugo {
         /// <param name="rType">Purpose to check for</param>
         /// <param name="checkFormat">Format to check</param>
         /// <returns></returns>
-        public static int CheckDeviceFormat(uint adapter, D3DDEVTYPE deviceType, D3DFORMAT adapterFormat, uint usage, D3DRESOURCETYPE rType, D3DFORMAT checkFormat) {
-            return _checkDeviceFormatDelegate(_d3d8, adapter, deviceType, adapterFormat, usage, rType, checkFormat);
+        public static D3DRESULT CheckDeviceFormat(uint adapter, D3DDEVTYPE deviceType, D3DFORMAT adapterFormat, uint usage, D3DRESOURCETYPE rType, D3DFORMAT checkFormat) {
+            return (D3DRESULT) _checkDeviceFormatDelegate(_d3d8, adapter, deviceType, adapterFormat, usage, rType, checkFormat);
         }
         /// <summary>
         /// Checks whether a certain multisample type is supported by the hardware
@@ -177,8 +177,8 @@ namespace Furball.Lanugo {
         /// <param name="windowed">Windowed</param>
         /// <param name="multisampleType">Multisample type to check</param>
         /// <returns></returns>
-        public static int CheckDeviceMultisampleType(uint adapter, D3DDEVTYPE deviceType, D3DFORMAT surfaceFormat, bool windowed, D3DMULTISAMPLE_TYPE multisampleType) {
-            return _checkDeviceMultiSampleTypeDelegate(_d3d8, adapter, deviceType, surfaceFormat, windowed, multisampleType);
+        public static D3DRESULT CheckDeviceMultisampleType(uint adapter, D3DDEVTYPE deviceType, D3DFORMAT surfaceFormat, bool windowed, D3DMULTISAMPLE_TYPE multisampleType) {
+            return (D3DRESULT) _checkDeviceMultiSampleTypeDelegate(_d3d8, adapter, deviceType, surfaceFormat, windowed, multisampleType);
         }
         /// <summary>
         /// determines whether a depth-stencil format is compatible with a render target format in a particular display mode.
@@ -189,18 +189,18 @@ namespace Furball.Lanugo {
         /// <param name="renderTargetFormat">Format of the Rendertarget</param>
         /// <param name="depthStencilFormat">Depth Stencil format to check</param>
         /// <returns></returns>
-        public static int CheckDepthStencilMatch(uint adapter, D3DDEVTYPE deviceType, D3DFORMAT adapterFormat, D3DFORMAT renderTargetFormat, D3DFORMAT depthStencilFormat) {
-            return _checkDepthStencilMatchDelegate(_d3d8, adapter, deviceType, adapterFormat, renderTargetFormat, depthStencilFormat);
+        public static D3DRESULT CheckDepthStencilMatch(uint adapter, D3DDEVTYPE deviceType, D3DFORMAT adapterFormat, D3DFORMAT renderTargetFormat, D3DFORMAT depthStencilFormat) {
+            return (D3DRESULT) _checkDepthStencilMatchDelegate(_d3d8, adapter, deviceType, adapterFormat, renderTargetFormat, depthStencilFormat);
         }
 
-        public static int GetDeviceCaps(uint adapter, D3DDEVTYPE deviceType, out D3DCAPS8 deviceCaps) {
+        public static D3DRESULT GetDeviceCaps(uint adapter, D3DDEVTYPE deviceType, out D3DCAPS8 deviceCaps) {
             D3DCAPS8 caps = new D3DCAPS8();
 
             int ret = _getDeviceCapsDelegate(_d3d8, adapter, deviceType, &caps);
 
             deviceCaps = caps;
 
-            return ret;
+            return (D3DRESULT) ret;
         }
 
         public static IntPtr GetAdapterMonitor(uint adapter) {
@@ -211,13 +211,13 @@ namespace Furball.Lanugo {
             monitorHandle = GetAdapterMonitor(adapter);
         }
 
-        public static int CreateDevice(uint adapter, D3DDEVTYPE deviceType, IntPtr focusWindow, uint behaviorFlags, D3DPRESENT_PARAMETERS* presentationParameters, ref IDirect3DDevice8* device) {
+        public static D3DRESULT CreateDevice(uint adapter, D3DDEVTYPE deviceType, IntPtr focusWindow, uint behaviorFlags, D3DPRESENT_PARAMETERS* presentationParameters, ref IDirect3DDevice8* device) {
             IntPtr returnedDeviceInterfaceOut = IntPtr.Zero;
 
             fixed (IDirect3DDevice8** ppReturnedDeviceInterfacePtr = &device) {
                 int ret = _createDeviceDelegate(_d3d8, adapter, deviceType, focusWindow, behaviorFlags, presentationParameters, ppReturnedDeviceInterfacePtr);
 
-                return ret;
+                return (D3DRESULT) ret;
             }
         }
     }

@@ -14,34 +14,35 @@ namespace Furball.Lanugo {
         public uint       AdapterOrdinal;
 
         /* Caps from DX7 Draw */
-        public uint Caps;
-        public uint Caps2;
-        public uint Caps3;
-        public uint PresentationIntervals;
+        public D3DCAPS_ENUM        Caps;
+        public D3DCAPS2_ENUM       Caps2;
+        public D3DCAPS3_ENUM       Caps3;
+        public D3DPRESENT_INTERVAL PresentationIntervals;
 
         /* Cursor Caps */
-        public uint CursorCaps;
+        public D3DCURSORCAPS CursorCaps;
 
         /* 3D Device Caps */
-        public uint DevCaps;
+        public D3DDEVCAPS DevCaps;
 
-        public uint PrimitiveMiscCaps;
-        public uint RasterCaps;
-        public uint ZCmpCaps;
-        public uint SrcBlendCaps;
-        public uint DestBlendCaps;
-        public uint AlphaCmpCaps;
-        public uint ShadeCaps;
-        public uint TextureCaps;
-        public uint TextureFilterCaps;// D3DPTFILTERCAPS for IDirect3DTexture8's
-        public uint CubeTextureFilterCaps;// D3DPTFILTERCAPS for IDirect3DCubeTexture8's
-        public uint VolumeTextureFilterCaps;// D3DPTFILTERCAPS for IDirect3DVolumeTexture8's
-        public uint TextureAddressCaps;// D3DPTADDRESSCAPS for IDirect3DTexture8's
-        public uint VolumeTextureAddressCaps;// D3DPTADDRESSCAPS for IDirect3DVolumeTexture8's
+        public D3DPRIMITIVEMISCCAPS  PrimitiveMiscCaps;
+        public D3DRASTERCAPS         RasterCaps;
+        public D3DPCMPCAPS           ZCmpCaps;
+        public D3DPBLENDCAPS         SrcBlendCaps;
+        public D3DPBLENDCAPS         DestBlendCaps;
+        public D3DPCMPCAPS           AlphaCmpCaps;
+        public D3DPSHADECAPS         ShadeCaps;
+        public D3DTEXTURECAPS        TextureCaps;
+        public D3DTEXTUREFILTERCAPS  TextureFilterCaps;
+        public D3DTEXTUREFILTERCAPS  CubeTextureFilterCaps;
+        public D3DTEXTUREFILTERCAPS  VolumeTextureFilterCaps;
+        public D3DTEXTUREADDRESSCAPS TextureAddressCaps;
+        public D3DTEXTUREFILTERCAPS  VolumeTextureAddressCaps;
 
-        public uint LineCaps;// D3DLINECAPS
+        public D3DLINECAPS LineCaps;// D3DLINECAPS
 
-        public uint MaxTextureWidth, MaxTextureHeight;
+        public uint MaxTextureWidth;
+        public uint MaxTextureHeight;
         public uint MaxVolumeExtent;
 
         public uint  MaxTextureRepeat;
@@ -54,13 +55,13 @@ namespace Furball.Lanugo {
         public float GuardBandRight;
         public float GuardBandBottom;
 
-        public float ExtentsAdjust;
-        public uint  StencilCaps;
+        public float          ExtentsAdjust;
+        public D3DSTENCILCAPS StencilCaps;
 
-        public uint FVFCaps;
-        public uint TextureOpCaps;
-        public uint MaxTextureBlendStages;
-        public uint MaxSimultaneousTextures;
+        public D3DFVFCAPS       FVFCaps;
+        public D3DTEXTUREOPCAPS TextureOpCaps;
+        public uint             MaxTextureBlendStages;
+        public uint             MaxSimultaneousTextures;
 
         public uint VertexProcessingCaps;
         public uint MaxActiveLights;
@@ -70,16 +71,28 @@ namespace Furball.Lanugo {
 
         public float MaxPointSize;
 
-        public uint MaxPrimitiveCount;// max number of primitives per DrawPrimitive call
+        /// <summary>
+        /// max number of primitives per DrawPrimitive call
+        /// </summary>
+        public uint MaxPrimitiveCount;
         public uint MaxVertexIndex;
         public uint MaxStreams;
-        public uint MaxStreamStride;// max stride for SetStreamSource
+        /// <summary>
+        /// max stride for SetStreamSource
+        /// </summary>
+        public uint MaxStreamStride;
 
         public uint VertexShaderVersion;
-        public uint MaxVertexShaderConst;// number of vertex shader constant registers
+        /// <summary>
+        /// number of vertex shader constant registers
+        /// </summary>
+        public uint MaxVertexShaderConst;
 
         public uint  PixelShaderVersion;
-        public float MaxPixelShaderValue;// max value of pixel shader arithmetic component
+        /// <summary>
+        /// max value of pixel shader arithmetic component
+        /// </summary>
+        public float MaxPixelShaderValue;
     }
 
     public struct LargeInteger {
@@ -114,12 +127,12 @@ namespace Furball.Lanugo {
 
         public D3DMULTISAMPLE_TYPE MultiSampleType;
 
-        public D3DSWAPEFFECT SwapEffect;
-        public IntPtr        hDeviceWindow;
-        public int           Windowed;
-        public int           EnableAutoDepthStencil;
-        public D3DFORMAT     AutoDepthStencilFormat;
-        public uint          Flags;
+        public D3DSWAPEFFECT               SwapEffect;
+        public IntPtr                      hDeviceWindow;
+        public int                         Windowed;
+        public int                         EnableAutoDepthStencil;
+        public D3DFORMAT                   AutoDepthStencilFormat;
+        public D3DPRESENT_PARAMETERS_FLAGS Flags;
 
         public uint FullScreen_RefreshRateInHz;
         public uint FullScreen_PresentationInterval;
