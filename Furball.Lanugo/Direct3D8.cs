@@ -270,14 +270,16 @@ namespace Furball.Lanugo {
         /// <param name="presentationParameters"></param>
         /// <param name="device"></param>
         /// <returns></returns>
-        public static D3DRESULT CreateDevice(uint adapter, D3DDEVTYPE deviceType, IntPtr focusWindow, D3DCREATEFLAGS behaviorFlags, D3DPRESENT_PARAMETERS* presentationParameters, ref IDirect3DDevice8* device) {
+        public static D3DRESULT CreateDevice(uint adapter, D3DDEVTYPE deviceType, IntPtr focusWindow, D3DCREATEFLAGS behaviorFlags, D3DPRESENT_PARAMETERS* presentationParameters, out IDirect3DDevice8* device) {
             IntPtr returnedDeviceInterfaceOut = IntPtr.Zero;
 
-            fixed (IDirect3DDevice8** ppReturnedDeviceInterfacePtr = &device) {
-                int ret = _createDeviceDelegate(_d3d8, adapter, deviceType, focusWindow, behaviorFlags, presentationParameters, ppReturnedDeviceInterfacePtr);
+            IDirect3DDevice8* ptrDevice;
 
-                return (D3DRESULT) ret;
-            }
+            int ret = _createDeviceDelegate(_d3d8, adapter, deviceType, focusWindow, behaviorFlags, presentationParameters, &ptrDevice);
+
+            device = ptrDevice;
+
+            return (D3DRESULT) ret;
         }
     }
 }
