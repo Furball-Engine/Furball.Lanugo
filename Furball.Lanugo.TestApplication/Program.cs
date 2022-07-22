@@ -9,7 +9,7 @@ namespace Furball.Lanugo.TestApplication {
     class Program {
         static unsafe void Main(string[] args) {
             Direct3D8.CreateDirect3D8();
-            Direct3D8.GetAdapterCount(out uint adapterCount);
+
             Direct3D8.GetAdapterModeCount(0, out uint adapterModeCount);
             Direct3D8.EnumAdapterModes(0, 0, out D3DDISPLAYMODE displayMode);
             Direct3D8.GetAdapterDisplayMode(0, out D3DDISPLAYMODE adapterDisplayMode);

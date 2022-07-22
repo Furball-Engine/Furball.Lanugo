@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Furball.Lanugo.TestApplicat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Furball.Lanugo", "Furball.Lanugo\Furball.Lanugo.csproj", "{CE2D5317-D64C-4D3F-B0C4-DC72AF4A2105}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Furball.Lanugo.Scripts", "Furball.Lanugo.Scripts\Furball.Lanugo.Scripts.csproj", "{C31061E4-3658-45DF-8AB7-80FCB358B36C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{CE2D5317-D64C-4D3F-B0C4-DC72AF4A2105}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE2D5317-D64C-4D3F-B0C4-DC72AF4A2105}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE2D5317-D64C-4D3F-B0C4-DC72AF4A2105}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C31061E4-3658-45DF-8AB7-80FCB358B36C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C31061E4-3658-45DF-8AB7-80FCB358B36C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C31061E4-3658-45DF-8AB7-80FCB358B36C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C31061E4-3658-45DF-8AB7-80FCB358B36C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
