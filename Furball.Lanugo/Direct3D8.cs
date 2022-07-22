@@ -45,12 +45,12 @@ namespace Furball.Lanugo {
         delegate int EnumAdapterModesDelegate(Direct3D8* d3d8, uint adapter, uint mode, void* pMode);
         delegate int GetAdapterDisplayModeDelegate(Direct3D8* d3d8, uint adapter, D3DDISPLAYMODE* pMode);
         delegate int CheckDeviceTypeDelegate(Direct3D8* d3d8, uint adapter, D3DDEVTYPE checkType, D3DFORMAT displayFormat, D3DFORMAT backBufferFormat, bool windowed);
-        delegate int CheckDeviceFormatDelegate(Direct3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, D3DFORMAT adapterFormat, uint usage, D3DRESOURCETYPE rType, D3DFORMAT checkFormat);
+        delegate int CheckDeviceFormatDelegate(Direct3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, D3DFORMAT adapterFormat, D3DFORMATCHECKUSAGE usage, D3DRESOURCETYPE rType, D3DFORMAT checkFormat);
         delegate int CheckDeviceMultiSampleTypeDelegate(Direct3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, D3DFORMAT surfaceFormat, bool windowed, D3DMULTISAMPLE_TYPE multisampleType);
         delegate int CheckDepthStencilMatchDelegate(Direct3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, D3DFORMAT adapterFormat, D3DFORMAT renderTargetFormat, D3DFORMAT depthStencilFormat);
         delegate int GetDeviceCapsDelegate(Direct3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, D3DCAPS8* pCaps);
         delegate IntPtr GetAdapterMonitorDelegate(Direct3D8* d3d8, uint adapter);
-        delegate int CreateDeviceDelegate(Direct3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, IntPtr hFocusWindow, uint behaviourFlags, void* pPresentationParameters, IDirect3DDevice8** ppReturnedDeviceInterfacce);
+        delegate int CreateDeviceDelegate(Direct3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, IntPtr hFocusWindow, D3DCREATEFLAGS behaviourFlags, void* pPresentationParameters, IDirect3DDevice8** ppReturnedDeviceInterfacce);
 
         #endregion
 
@@ -76,6 +76,9 @@ namespace Furball.Lanugo {
         private static GetAdapterMonitorDelegate          _getAdapterMonitorDelegate;
         private static CreateDeviceDelegate               _createDeviceDelegate;
 
+        /// <summary>
+        /// Initializes Direct3D8
+        /// </summary>
         public static void CreateDirect3D8() {
             Direct3D8* d3d8 = Direct3DCreate8(D3D_SDK_VERSION);
 
@@ -99,15 +102,29 @@ namespace Furball.Lanugo {
             _getAdapterMonitorDelegate          = Marshal.GetDelegateForFunctionPointer<GetAdapterMonitorDelegate>(GetAdapterMonitorPtr);
             _createDeviceDelegate               = Marshal.GetDelegateForFunctionPointer<CreateDeviceDelegate>(CreateDevicePtr);
         }
-
+        /// <summary>
+        /// Gets the amount of adapters
+        /// </summary>
+        /// <returns>Adapter Count</returns>
         public static uint GetAdapterCount() => _getAdapterCountDelegate(_d3d8);
-
+        /// <summary>
+        /// Gets the number of adapters
+        /// </summary>
+        /// <param name="adapterCount">Returning adapter count</param>
         public static void GetAdapterCount(out uint adapterCount) {
             adapterCount = GetAdapterCount();
         }
-
-        public static D3DRESULT GetAdapterIdentifer(uint adapter, uint flags, out D3DADAPTER_IDENTIFIER8 adapterIdentifer) {
+        /// <summary>
+        /// Gets information about a card
+        /// </summary>
+        /// <param name="adapter"></param>
+        /// <param name="disableWhqlCheck">Disables the WHQL certification date check</param>
+        /// <param name="adapterIdentifer"></param>
+        /// <returns></returns>
+        public static D3DRESULT GetAdapterIdentifer(uint adapter, bool disableWhqlCheck, out D3DADAPTER_IDENTIFIER8 adapterIdentifer) {
             D3DADAPTER_IDENTIFIER8 ptrIdentifer = new D3DADAPTER_IDENTIFIER8();
+
+            uint flags = disableWhqlCheck ? 1u : 0u;
 
             int ret = _getAdapterIdentifierDelegate(_d3d8, adapter, flags, &ptrIdentifer);
 
@@ -115,15 +132,29 @@ namespace Furball.Lanugo {
 
             return (D3DRESULT) ret;
         }
-
+        /// <summary>
+        /// Gets the amount of modes available for EnumAdapterModes
+        /// </summary>
+        /// <param name="adapter">Adapter to check for</param>
+        /// <returns></returns>
         public static uint GetAdapterModeCount(uint adapter) {
             return _getAdapterModeCountDelegate(_d3d8, adapter);
         }
-
+        /// <summary>
+        /// Gets the amount of modes available for EnumAdapterModes
+        /// </summary>
+        /// <param name="adapter">Adapter to check for</param>
+        /// <param name="adapterModeCount">Returning mode count</param>
         public static void GetAdapterModeCount(uint adapter, out uint adapterModeCount) {
             adapterModeCount = GetAdapterModeCount(adapter);
         }
-
+        /// <summary>
+        /// Gets a given adapter mode, where mode is the index
+        /// </summary>
+        /// <param name="adapter">adapter to check for</param>
+        /// <param name="mode">Mode index (query max with GetAdapterModeCount)</param>
+        /// <param name="displayMode">Returning Display mode</param>
+        /// <returns></returns>
         public static D3DRESULT EnumAdapterModes(uint adapter, uint mode, out D3DDISPLAYMODE displayMode) {
             D3DDISPLAYMODE ptrDisplayMode = new D3DDISPLAYMODE();
 
@@ -133,7 +164,12 @@ namespace Furball.Lanugo {
 
             return (D3DRESULT) ret;
         }
-
+        /// <summary>
+        /// Gets the display mode of a adapter
+        /// </summary>
+        /// <param name="adapter">Adapter to check for</param>
+        /// <param name="displayMode">Returning display mode</param>
+        /// <returns></returns>
         public static D3DRESULT GetAdapterDisplayMode(uint adapter, out D3DDISPLAYMODE displayMode) {
             D3DDISPLAYMODE ptrDisplayMode = new D3DDISPLAYMODE();
 
@@ -165,7 +201,7 @@ namespace Furball.Lanugo {
         /// <param name="rType">Purpose to check for</param>
         /// <param name="checkFormat">Format to check</param>
         /// <returns></returns>
-        public static D3DRESULT CheckDeviceFormat(uint adapter, D3DDEVTYPE deviceType, D3DFORMAT adapterFormat, uint usage, D3DRESOURCETYPE rType, D3DFORMAT checkFormat) {
+        public static D3DRESULT CheckDeviceFormat(uint adapter, D3DDEVTYPE deviceType, D3DFORMAT adapterFormat, D3DFORMATCHECKUSAGE usage, D3DRESOURCETYPE rType, D3DFORMAT checkFormat) {
             return (D3DRESULT) _checkDeviceFormatDelegate(_d3d8, adapter, deviceType, adapterFormat, usage, rType, checkFormat);
         }
         /// <summary>
@@ -192,7 +228,13 @@ namespace Furball.Lanugo {
         public static D3DRESULT CheckDepthStencilMatch(uint adapter, D3DDEVTYPE deviceType, D3DFORMAT adapterFormat, D3DFORMAT renderTargetFormat, D3DFORMAT depthStencilFormat) {
             return (D3DRESULT) _checkDepthStencilMatchDelegate(_d3d8, adapter, deviceType, adapterFormat, renderTargetFormat, depthStencilFormat);
         }
-
+        /// <summary>
+        /// Gets Device Capabilities for a given adapter
+        /// </summary>
+        /// <param name="adapter">Adapter to check</param>
+        /// <param name="deviceType">What type of adapter to check for</param>
+        /// <param name="deviceCaps">Returning device capabilities</param>
+        /// <returns></returns>
         public static D3DRESULT GetDeviceCaps(uint adapter, D3DDEVTYPE deviceType, out D3DCAPS8 deviceCaps) {
             D3DCAPS8 caps = new D3DCAPS8();
 
@@ -202,16 +244,33 @@ namespace Furball.Lanugo {
 
             return (D3DRESULT) ret;
         }
-
+        /// <summary>
+        /// Gets a adapters monitor handle
+        /// </summary>
+        /// <param name="adapter">Adapter to check for</param>
+        /// <returns></returns>
         public static IntPtr GetAdapterMonitor(uint adapter) {
             return _getAdapterMonitorDelegate(_d3d8, adapter);
         }
-
+        /// <summary>
+        /// Gets a adapters monitor handle
+        /// </summary>
+        /// <param name="adapter">Adapter to check for</param>
+        /// <param name="monitorHandle">Returning Monitor Handle</param>
         public static void GetAdapterMonitor(uint adapter, out IntPtr monitorHandle) {
             monitorHandle = GetAdapterMonitor(adapter);
         }
-
-        public static D3DRESULT CreateDevice(uint adapter, D3DDEVTYPE deviceType, IntPtr focusWindow, uint behaviorFlags, D3DPRESENT_PARAMETERS* presentationParameters, ref IDirect3DDevice8* device) {
+        /// <summary>
+        /// Creates a Direct3D8 Device
+        /// </summary>
+        /// <param name="adapter">Adapter to create it under</param>
+        /// <param name="deviceType">What kind of adapter to use</param>
+        /// <param name="focusWindow">Window Handle to render to</param>
+        /// <param name="behaviorFlags"></param>
+        /// <param name="presentationParameters"></param>
+        /// <param name="device"></param>
+        /// <returns></returns>
+        public static D3DRESULT CreateDevice(uint adapter, D3DDEVTYPE deviceType, IntPtr focusWindow, D3DCREATEFLAGS behaviorFlags, D3DPRESENT_PARAMETERS* presentationParameters, ref IDirect3DDevice8* device) {
             IntPtr returnedDeviceInterfaceOut = IntPtr.Zero;
 
             fixed (IDirect3DDevice8** ppReturnedDeviceInterfacePtr = &device) {

@@ -10,12 +10,12 @@ namespace Furball.Lanugo.TestApplication {
             Direct3D8.GetAdapterCount(out uint adapterCount);
             Direct3D8.GetAdapterModeCount(0, out uint adapterModeCount);
             Direct3D8.EnumAdapterModes(0, 0, out D3DDISPLAYMODE displayMode);
-            Direct3D8.GetAdapterIdentifer(0, 0, out D3DADAPTER_IDENTIFIER8 adapterIdentifer);
+            Direct3D8.GetAdapterIdentifer(0, false, out D3DADAPTER_IDENTIFIER8 adapterIdentifer);
             Direct3D8.GetDeviceCaps(0, D3DDEVTYPE.Hardware, out D3DCAPS8 deviceCaps);
             Direct3D8.GetAdapterDisplayMode(0, out D3DDISPLAYMODE adapterDisplayMode);
 
             D3DRESULT supportsDisplayAndBackBuffer = Direct3D8.CheckDeviceType(0, D3DDEVTYPE.Hardware, D3DFORMAT.D3DFMT_X8R8G8B8, D3DFORMAT.D3DFMT_A8R8G8B8, true);
-            D3DRESULT supportsSurface = Direct3D8.CheckDeviceFormat(0, D3DDEVTYPE.Hardware, D3DFORMAT.D3DFMT_X8R8G8B8, 1, D3DRESOURCETYPE.D3DRTYPE_SURFACE, D3DFORMAT.D3DFMT_A8R8G8B8);
+            D3DRESULT supportsSurface = Direct3D8.CheckDeviceFormat(0, D3DDEVTYPE.Hardware, D3DFORMAT.D3DFMT_X8R8G8B8, D3DFORMATCHECKUSAGE.D3DUSAGE_RENDERTARGET, D3DRESOURCETYPE.D3DRTYPE_SURFACE, D3DFORMAT.D3DFMT_A8R8G8B8);
             D3DRESULT supportsMultisample2x = Direct3D8.CheckDeviceMultisampleType(0, D3DDEVTYPE.Hardware, D3DFORMAT.D3DFMT_X8R8G8B8, true, D3DMULTISAMPLE_TYPE.D3DMULTISAMPLE_2_SAMPLES);
             D3DRESULT supportsDepthStencil = Direct3D8.CheckDepthStencilMatch(0, D3DDEVTYPE.Hardware, D3DFORMAT.D3DFMT_A8R8G8B8, D3DFORMAT.D3DFMT_X8R8G8B8, D3DFORMAT.D3DFMT_D16);
 
@@ -36,7 +36,7 @@ namespace Furball.Lanugo.TestApplication {
 
             IDirect3DDevice8* devicePtr = null;
 
-            Direct3D8.CreateDevice(0, D3DDEVTYPE.Hardware, IntPtr.Zero, 64, &presentParameters, ref devicePtr);
+            Direct3D8.CreateDevice(0, D3DDEVTYPE.Hardware, IntPtr.Zero, D3DCREATEFLAGS.D3DCREATE_HARDWARE_VERTEXPROCESSING , &presentParameters, ref devicePtr);
         }
     }
 }
