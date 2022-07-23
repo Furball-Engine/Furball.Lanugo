@@ -11,14 +11,14 @@ namespace Furball.Lanugo.TestApplication {
         private IWindow _window;
 
         public unsafe Application() {
-            Direct3D8.GetAdapterCount(out uint adapterCount);
+            IDirect3D8.GetAdapterCount(out uint adapterCount);
 
             if (adapterCount == 0) {
                 throw new Exception("No Direct3D8 Devices found!");
             }
 
-            Direct3D8.GetDeviceCaps(0, D3DDEVTYPE.Hardware, out this._deviceCapabilities);
-            Direct3D8.GetAdapterIdentifer(0, false, out D3DADAPTER_IDENTIFIER8 adapterIdentifer);
+            IDirect3D8.GetDeviceCaps(0, D3DDEVTYPE.Hardware, out this._deviceCapabilities);
+            IDirect3D8.GetAdapterIdentifer(0, false, out D3DADAPTER_IDENTIFIER8 adapterIdentifer);
 
             string driver = PtrHelpers.ToStringASCII(adapterIdentifer.Driver,           512);
             string description = PtrHelpers.ToStringASCII(adapterIdentifer.Description, 512);
@@ -28,8 +28,8 @@ namespace Furball.Lanugo.TestApplication {
             Console.WriteLine($"[Direct3D8] Running on {driver}");
             Console.WriteLine($"[Direct3D8] Adapter Description: {description}");
 
-            D3DRESULT supportsDisplayAndBackBuffer = Direct3D8.CheckDeviceType(0, D3DDEVTYPE.Hardware, D3DFORMAT.D3DFMT_X8R8G8B8, D3DFORMAT.D3DFMT_A8R8G8B8, true);
-            D3DRESULT supportsSurface = Direct3D8.CheckDeviceFormat(0, D3DDEVTYPE.Hardware, D3DFORMAT.D3DFMT_X8R8G8B8, D3DFORMATCHECKUSAGE.D3DUSAGE_RENDERTARGET, D3DRESOURCETYPE.D3DRTYPE_SURFACE, D3DFORMAT.D3DFMT_A8R8G8B8);
+            D3DRESULT supportsDisplayAndBackBuffer = IDirect3D8.CheckDeviceType(0, D3DDEVTYPE.Hardware, D3DFORMAT.D3DFMT_X8R8G8B8, D3DFORMAT.D3DFMT_A8R8G8B8, true);
+            D3DRESULT supportsSurface = IDirect3D8.CheckDeviceFormat(0, D3DDEVTYPE.Hardware, D3DFORMAT.D3DFMT_X8R8G8B8, D3DFORMATCHECKUSAGE.D3DUSAGE_RENDERTARGET, D3DRESOURCETYPE.D3DRTYPE_SURFACE, D3DFORMAT.D3DFMT_A8R8G8B8);
 
             if (supportsDisplayAndBackBuffer != D3DRESULT.D3D_OK || supportsSurface != D3DRESULT.D3D_OK) {
                 //TODO: make a sort of detector for which format does work
@@ -59,7 +59,7 @@ namespace Furball.Lanugo.TestApplication {
                 Windowed         = 1,
             };
 
-            D3DRESULT result = Direct3D8.CreateDevice(0, D3DDEVTYPE.Hardware, this._window.Native.Win32.Value.Hwnd, D3DCREATEFLAGS.D3DCREATE_HARDWARE_VERTEXPROCESSING , &presentParameters, out this._device);
+            D3DRESULT result = IDirect3D8.CreateDevice(0, D3DDEVTYPE.Hardware, this._window.Native.Win32.Value.Hwnd, D3DCREATEFLAGS.D3DCREATE_HARDWARE_VERTEXPROCESSING , &presentParameters, out this._device);
 
             if (result != D3DRESULT.D3D_OK) {
                 throw new Exception("Direct3D8 Device creation failed!");

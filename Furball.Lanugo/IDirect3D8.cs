@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 
 namespace Furball.Lanugo {
 
-    public unsafe struct Direct3D8 {
+    public unsafe struct IDirect3D8 {
         // ReSharper disable once InconsistentNaming
         public const int D3D_SDK_VERSION = 120;
 
         [DllImport("d3d8", CallingConvention = CallingConvention.Winapi, CharSet = CharSet.Ansi, ExactSpelling = true)]
-        private static extern Direct3D8* Direct3DCreate8(uint sdkVersion);
+        private static extern IDirect3D8* Direct3DCreate8(uint sdkVersion);
 
         private static IntPtr QueryInterfacePtr => (IntPtr) _d3d8->LpVtbl[0];
         private static IntPtr AddRefPtr => (IntPtr) _d3d8->LpVtbl[1];
@@ -38,25 +38,25 @@ namespace Furball.Lanugo {
 
         #region IDirect3D8 Delegates
 
-        delegate int RegisterSoftwareDeviceDelegate(Direct3D8* d3d8, void* initializeFunction);
-        delegate uint GetAdapterCountDelegate(Direct3D8* d3d8);
-        delegate int GetAdapterIdentifierDelegate(Direct3D8* d3d8, uint adapter, uint flags, void* pIdentifier);
-        delegate uint GetAdapterModeCountDelegate(Direct3D8* d3d8, uint adapter);
-        delegate int EnumAdapterModesDelegate(Direct3D8* d3d8, uint adapter, uint mode, void* pMode);
-        delegate int GetAdapterDisplayModeDelegate(Direct3D8* d3d8, uint adapter, D3DDISPLAYMODE* pMode);
-        delegate int CheckDeviceTypeDelegate(Direct3D8* d3d8, uint adapter, D3DDEVTYPE checkType, D3DFORMAT displayFormat, D3DFORMAT backBufferFormat, bool windowed);
-        delegate int CheckDeviceFormatDelegate(Direct3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, D3DFORMAT adapterFormat, D3DFORMATCHECKUSAGE usage, D3DRESOURCETYPE rType, D3DFORMAT checkFormat);
-        delegate int CheckDeviceMultiSampleTypeDelegate(Direct3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, D3DFORMAT surfaceFormat, bool windowed, D3DMULTISAMPLE_TYPE multisampleType);
-        delegate int CheckDepthStencilMatchDelegate(Direct3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, D3DFORMAT adapterFormat, D3DFORMAT renderTargetFormat, D3DFORMAT depthStencilFormat);
-        delegate int GetDeviceCapsDelegate(Direct3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, D3DCAPS8* pCaps);
-        delegate IntPtr GetAdapterMonitorDelegate(Direct3D8* d3d8, uint adapter);
-        delegate int CreateDeviceDelegate(Direct3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, IntPtr hFocusWindow, D3DCREATEFLAGS behaviourFlags, void* pPresentationParameters, IDirect3DDevice8** ppReturnedDeviceInterfacce);
+        delegate int RegisterSoftwareDeviceDelegate(IDirect3D8* d3d8, void* initializeFunction);
+        delegate uint GetAdapterCountDelegate(IDirect3D8* d3d8);
+        delegate int GetAdapterIdentifierDelegate(IDirect3D8* d3d8, uint adapter, uint flags, void* pIdentifier);
+        delegate uint GetAdapterModeCountDelegate(IDirect3D8* d3d8, uint adapter);
+        delegate int EnumAdapterModesDelegate(IDirect3D8* d3d8, uint adapter, uint mode, void* pMode);
+        delegate int GetAdapterDisplayModeDelegate(IDirect3D8* d3d8, uint adapter, D3DDISPLAYMODE* pMode);
+        delegate int CheckDeviceTypeDelegate(IDirect3D8* d3d8, uint adapter, D3DDEVTYPE checkType, D3DFORMAT displayFormat, D3DFORMAT backBufferFormat, bool windowed);
+        delegate int CheckDeviceFormatDelegate(IDirect3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, D3DFORMAT adapterFormat, D3DFORMATCHECKUSAGE usage, D3DRESOURCETYPE rType, D3DFORMAT checkFormat);
+        delegate int CheckDeviceMultiSampleTypeDelegate(IDirect3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, D3DFORMAT surfaceFormat, bool windowed, D3DMULTISAMPLE_TYPE multisampleType);
+        delegate int CheckDepthStencilMatchDelegate(IDirect3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, D3DFORMAT adapterFormat, D3DFORMAT renderTargetFormat, D3DFORMAT depthStencilFormat);
+        delegate int GetDeviceCapsDelegate(IDirect3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, D3DCAPS8* pCaps);
+        delegate IntPtr GetAdapterMonitorDelegate(IDirect3D8* d3d8, uint adapter);
+        delegate int CreateDeviceDelegate(IDirect3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, IntPtr hFocusWindow, D3DCREATEFLAGS behaviourFlags, void* pPresentationParameters, IDirect3DDevice8** ppReturnedDeviceInterfacce);
 
         #endregion
 
         public void** LpVtbl;
 
-        private static Direct3D8* _d3d8;
+        private static IDirect3D8* _d3d8;
 
         private static QueryInterfaceDelegate             _queryInterfaceDelegate;
         private static AddRefDelegate                     _addRefDelegate;
@@ -80,7 +80,7 @@ namespace Furball.Lanugo {
         /// Initializes Direct3D8
         /// </summary>
         public static void CreateDirect3D8() {
-            Direct3D8* d3d8 = Direct3DCreate8(D3D_SDK_VERSION);
+            IDirect3D8* d3d8 = Direct3DCreate8(D3D_SDK_VERSION);
 
             _d3d8 = d3d8;
 

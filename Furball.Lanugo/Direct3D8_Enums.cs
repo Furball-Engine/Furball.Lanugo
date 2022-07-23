@@ -519,4 +519,502 @@ namespace Furball.Lanugo {
         D3DUSAGE_RENDERTARGET = 1,
         D3DUSAGE_DEPTHSTENCIL = 2
     }
+
+    public enum D3DPRIMITIVETYPE : uint {
+        D3DPT_POINTLIST     = 1,
+        D3DPT_LINELIST      = 2,
+        D3DPT_LINESTRIP     = 3,
+        D3DPT_TRIANGLELIST  = 4,
+        D3DPT_TRIANGLESTRIP = 5,
+        D3DPT_TRIANGLEFAN   = 6,
+    }
+
+    public enum D3DPOOL : uint {
+        D3DPOOL_DEFAULT   = 0,
+        D3DPOOL_MANAGED   = 1,
+        D3DPOOL_SYSTEMMEM = 2,
+    }
+
+    public enum D3DBACKBUFFER_TYPE : uint {
+        D3DBACKBUFFER_TYPE_MONO  = 0,
+        D3DBACKBUFFER_TYPE_LEFT  = 1,
+        D3DBACKBUFFER_TYPE_RIGHT = 2,
+    }
+
+    public enum D3DTRANSFORMSTATETYPE : uint {
+        D3DTS_VIEW       = 2,
+        D3DTS_PROJECTION = 3,
+        D3DTS_TEXTURE0   = 16,
+        D3DTS_TEXTURE1   = 17,
+        D3DTS_TEXTURE2   = 18,
+        D3DTS_TEXTURE3   = 19,
+        D3DTS_TEXTURE4   = 20,
+        D3DTS_TEXTURE5   = 21,
+        D3DTS_TEXTURE6   = 22,
+        D3DTS_TEXTURE7   = 23,
+    }
+
+    public enum D3DLIGHTTYPE : uint {
+        D3DLIGHT_POINT       = 1,
+        D3DLIGHT_SPOT        = 2,
+        D3DLIGHT_DIRECTIONAL = 3,
+    }
+
+    public enum D3DRENDERSTATETYPE : uint {
+        /// <summary>
+        /// D3DZBUFFERTYPE (or TRUE/FALSE for legacy)
+        /// </summary>
+        D3DRS_ZENABLE = 7,
+        /// <summary>
+        /// D3DFILL_MODE
+        /// </summary>
+        D3DRS_FILLMODE = 8,
+        /// <summary>
+        /// D3DSHADEMODE
+        /// </summary>
+        D3DRS_SHADEMODE = 9,
+        /// <summary>
+        /// D3DLINEPATTERN
+        /// </summary>
+        D3DRS_LINEPATTERN = 10,
+        /// <summary>
+        /// TRUE to enable z writes
+        /// </summary>
+        D3DRS_ZWRITEENABLE = 14,
+        /// <summary>
+        /// TRUE to enable alpha tests
+        /// </summary>
+        D3DRS_ALPHATESTENABLE = 15,
+        /// <summary>
+        /// TRUE for last-pixel on lines
+        /// </summary>
+        D3DRS_LASTPIXEL = 16,
+        /// <summary>
+        /// D3DBLEND
+        /// </summary>
+        D3DRS_SRCBLEND = 19,
+        /// <summary>
+        /// D3DBLEND
+        /// </summary>
+        D3DRS_DESTBLEND = 20,
+        /// <summary>
+        /// D3DCULL
+        /// </summary>
+        D3DRS_CULLMODE = 22,
+        /// <summary>
+        /// D3DCMPFUNC
+        /// </summary>
+        D3DRS_ZFUNC = 23,
+        /// <summary>
+        /// D3DFIXED
+        /// </summary>
+        D3DRS_ALPHAREF = 24,
+        /// <summary>
+        /// D3DCMPFUNC
+        /// </summary>
+        D3DRS_ALPHAFUNC = 25,
+        /// <summary>
+        /// TRUE to enable dithering
+        /// </summary>
+        D3DRS_DITHERENABLE = 26,
+        /// <summary>
+        /// TRUE to enable alpha blending
+        /// </summary>
+        D3DRS_ALPHABLENDENABLE = 27,
+        /// <summary>
+        /// TRUE to enable fog blending
+        /// </summary>
+        D3DRS_FOGENABLE = 28,
+        /// <summary>
+        /// TRUE to enable specular
+        /// </summary>
+        D3DRS_SPECULARENABLE = 29,
+        /// <summary>
+        /// TRUE to enable z checking
+        /// </summary>
+        D3DRS_ZVISIBLE = 30,
+        /// <summary>
+        /// D3DCOLOR
+        /// </summary>
+        D3DRS_FOGCOLOR = 34,
+        /// <summary>
+        /// D3DFOGMODE
+        /// </summary>
+        D3DRS_FOGTABLEMODE = 35,
+        /// <summary>
+        /// Fog start (for both vertex and pixel fog)
+        /// </summary>
+        D3DRS_FOGSTART = 36,
+        /// <summary>
+        /// Fog end
+        /// </summary>
+        D3DRS_FOGEND = 37,
+        /// <summary>
+        /// Fog density
+        /// </summary>
+        D3DRS_FOGDENSITY = 38,
+        /// <summary>
+        /// TRUE to enable edge antialiasing
+        /// </summary>
+        D3DRS_EDGEANTIALIAS = 40,
+        /// <summary>
+        /// LONG Z bias
+        /// </summary>
+        D3DRS_ZBIAS = 47,
+        /// <summary>
+        /// Enables range-based fog
+        /// </summary>
+        D3DRS_RANGEFOGENABLE = 48,
+        /// <summary>
+        /// BOOL enable/disable stenciling
+        /// </summary>
+        D3DRS_STENCILENABLE = 52,
+        /// <summary>
+        /// D3DSTENCILOP to do if stencil test fails
+        /// </summary>
+        D3DRS_STENCILFAIL = 53,
+        /// <summary>
+        /// D3DSTENCILOP to do if stencil test passes and Z test fails
+        /// </summary>
+        D3DRS_STENCILZFAIL = 54,
+        /// <summary>
+        /// D3DSTENCILOP to do if both stencil and Z tests pass
+        /// </summary>
+        D3DRS_STENCILPASS = 55,
+        /// <summary>
+        /// D3DCMPFUNC fn.  Stencil Test passes if ((ref & mask) stencilfn (stencil & mask)) is true
+        /// </summary>
+        D3DRS_STENCILFUNC = 56,
+        /// <summary>
+        /// Reference value used in stencil test
+        /// </summary>
+        D3DRS_STENCILREF = 57,
+        /// <summary>
+        /// Mask value used in stencil test
+        /// </summary>
+        D3DRS_STENCILMASK = 58,
+        /// <summary>
+        /// Write mask applied to values written to stencil buffer
+        /// </summary>
+        D3DRS_STENCILWRITEMASK = 59,
+        /// <summary>
+        /// D3DCOLOR used for multi-texture blend
+        /// </summary>
+        D3DRS_TEXTUREFACTOR = 60,
+        /// <summary>
+        /// wrap for 1st texture coord. set
+        /// </summary>
+        D3DRS_WRAP0 = 128,
+        /// <summary>
+        /// wrap for 1st texture coord. set
+        /// </summary>
+        D3DRS_WRAP1 = 129,
+        /// <summary>
+        /// wrap for 2nd texture coord. set
+        /// </summary>
+        D3DRS_WRAP2 = 130,
+        /// <summary>
+        /// wrap for 3rd texture coord. set
+        /// </summary>
+        D3DRS_WRAP3 = 131,
+        /// <summary>
+        /// wrap for 4th texture coord. set
+        /// </summary>
+        D3DRS_WRAP4 = 132,
+        /// <summary>
+        /// wrap for 5th texture coord. set
+        /// </summary>
+        D3DRS_WRAP5 = 133,
+        /// <summary>
+        /// wrap for 6th texture coord. set
+        /// </summary>
+        D3DRS_WRAP6 = 134,
+        /// <summary>
+        /// wrap for 7th texture coord. set
+        /// </summary>
+        D3DRS_WRAP7 = 135,
+        /// <summary>
+        /// wrap for 8th texture coord. set
+        /// </summary>
+        D3DRS_CLIPPING = 136,
+        D3DRS_LIGHTING                 = 137,
+        D3DRS_AMBIENT                  = 139,
+        D3DRS_FOGVERTEXMODE            = 140,
+        D3DRS_COLORVERTEX              = 141,
+        D3DRS_LOCALVIEWER              = 142,
+        D3DRS_NORMALIZENORMALS         = 143,
+        D3DRS_DIFFUSEMATERIALSOURCE    = 145,
+        D3DRS_SPECULARMATERIALSOURCE   = 146,
+        D3DRS_AMBIENTMATERIALSOURCE    = 147,
+        D3DRS_EMISSIVEMATERIALSOURCE   = 148,
+        D3DRS_VERTEXBLEND              = 151,
+        D3DRS_CLIPPLANEENABLE          = 152,
+        D3DRS_SOFTWAREVERTEXPROCESSING = 153,
+        /// <summary>
+        /// float point size
+        /// </summary>
+        D3DRS_POINTSIZE = 154,
+        /// <summary>
+        /// float point size min threshold
+        /// </summary>
+        D3DRS_POINTSIZE_MIN = 155,
+        /// <summary>
+        /// BOOL point texture coord control
+        /// </summary>
+        D3DRS_POINTSPRITEENABLE = 156,
+        /// <summary>
+        /// BOOL point size scale enable
+        /// </summary>
+        D3DRS_POINTSCALEENABLE = 157,
+        /// <summary>
+        /// float point attenuation A value
+        /// </summary>
+        D3DRS_POINTSCALE_A = 158,
+        /// <summary>
+        /// float point attenuation B value
+        /// </summary>
+        D3DRS_POINTSCALE_B = 159,
+        /// <summary>
+        /// float point attenuation C value
+        /// </summary>
+        D3DRS_POINTSCALE_C = 160,
+        /// <summary>
+        /// BOOL - set to do FSAA with multisample buffer
+        /// </summary>
+        D3DRS_MULTISAMPLEANTIALIAS = 161,
+        /// <summary>
+        /// DWORD - per-sample enable/disable
+        /// </summary>
+        D3DRS_MULTISAMPLEMASK = 162,
+        /// <summary>
+        /// Sets whether patch edges will use float style tessellation
+        /// </summary>
+        D3DRS_PATCHEDGESTYLE = 163,
+        /// <summary>
+        /// Number of segments per edge when drawing patches
+        /// </summary>
+        D3DRS_PATCHSEGMENTS = 164,
+        /// <summary>
+        /// DEBUG ONLY - token to debug monitor
+        /// </summary>
+        D3DRS_DEBUGMONITORTOKEN = 165,
+        /// <summary>
+        /// float point size max threshold
+        /// </summary>
+        D3DRS_POINTSIZE_MAX = 166,
+        D3DRS_INDEXEDVERTEXBLENDENABLE = 167,
+        /// <summary>
+        /// per-channel write enable
+        /// </summary>
+        D3DRS_COLORWRITEENABLE = 168,
+        /// <summary>
+        /// float tween factor
+        /// </summary>
+        D3DRS_TWEENFACTOR = 170,
+        /// <summary>
+        /// D3DBLENDOP setting
+        /// </summary>
+        D3DRS_BLENDOP = 171,
+    }
+
+    public enum D3DSTATEBLOCKTYPE : uint {
+        /// <summary>
+        /// capture all state
+        /// </summary>
+        D3DSBT_ALL = 1,
+        /// <summary>
+        /// capture pixel state
+        /// </summary>
+        D3DSBT_PIXELSTATE = 2,
+        /// <summary>
+        /// capture vertex state
+        /// </summary>
+        D3DSBT_VERTEXSTATE = 3,
+    }
+
+    public enum D3DTEXTURESTAGESTATETYPE : uint {
+        /// <summary>
+        /// D3DTEXTUREOP - per-stage blending controls for color channels
+        /// </summary>
+        D3DTSS_COLOROP = 1,
+        /// <summary>
+        /// D3DTA_* (texture arg)
+        /// </summary>
+        D3DTSS_COLORARG1 = 2,
+        /// <summary>
+        /// D3DTA_* (texture arg)
+        /// </summary>
+        D3DTSS_COLORARG2 = 3,
+        /// <summary>
+        /// D3DTEXTUREOP - per-stage blending controls for alpha channel
+        /// </summary>
+        D3DTSS_ALPHAOP = 4,
+        /// <summary>
+        /// D3DTA_* (texture arg)
+        /// </summary>
+        D3DTSS_ALPHAARG1 = 5,
+        /// <summary>
+        /// D3DTA_* (texture arg)
+        /// </summary>
+        D3DTSS_ALPHAARG2 = 6,
+        /// <summary>
+        ///  float (bump mapping matrix)
+        /// </summary>
+        D3DTSS_BUMPENVMAT00 = 7,
+        /// <summary>
+        ///  float (bump mapping matrix)
+        /// </summary>
+        D3DTSS_BUMPENVMAT01 = 8,
+        /// <summary>
+        ///  float (bump mapping matrix)
+        /// </summary>
+        D3DTSS_BUMPENVMAT10 = 9,
+        /// <summary>
+        ///  float (bump mapping matrix)
+        /// </summary>
+        D3DTSS_BUMPENVMAT11 = 10,
+        /// <summary>
+        /// identifies which set of texture coordinates index this texture
+        /// </summary>
+        D3DTSS_TEXCOORDINDEX = 11,
+        /// <summary>
+        /// D3DTEXTUREADDRESS for U coordinate
+        /// </summary>
+        D3DTSS_ADDRESSU = 13,
+        /// <summary>
+        /// D3DTEXTUREADDRESS for V coordinate
+        /// </summary>
+        D3DTSS_ADDRESSV = 14,
+        /// <summary>
+        /// D3DCOLOR
+        /// </summary>
+        D3DTSS_BORDERCOLOR = 15,
+        /// <summary>
+        /// D3DTEXTUREFILTER filter to use for magnification
+        /// </summary>
+        D3DTSS_MAGFILTER = 16,
+        /// <summary>
+        /// D3DTEXTUREFILTER filter to use for minification
+        /// </summary>
+        D3DTSS_MINFILTER = 17,
+        /// <summary>
+        /// D3DTEXTUREFILTER filter to use between mipmaps during minification
+        /// </summary>
+        D3DTSS_MIPFILTER = 18,
+        /// <summary>
+        /// float Mipmap LOD bias
+        /// </summary>
+        D3DTSS_MIPMAPLODBIAS = 19,
+        /// <summary>
+        /// DWORD 0..(n-1) LOD index of largest map to use (0 == largest)
+        /// </summary>
+        D3DTSS_MAXMIPLEVEL = 20,
+        /// <summary>
+        /// DWORD maximum anisotropy
+        /// </summary>
+        D3DTSS_MAXANISOTROPY = 21,
+        /// <summary>
+        /// float scale for bump map luminance
+        /// </summary>
+        D3DTSS_BUMPENVLSCALE = 22,
+        /// <summary>
+        /// float offset for bump map luminance
+        /// </summary>
+        D3DTSS_BUMPENVLOFFSET = 23,
+        /// <summary>
+        /// D3DTEXTURETRANSFORMFLAGS controls texture transform
+        /// </summary>
+        D3DTSS_TEXTURETRANSFORMFLAGS = 24,
+        /// <summary>
+        /// D3DTEXTUREADDRESS for W coordinate
+        /// </summary>
+        D3DTSS_ADDRESSW = 25,
+        /// <summary>
+        /// D3DTA_* third arg for triadic ops
+        /// </summary>
+        D3DTSS_COLORARG0 = 26,
+        /// <summary>
+        /// D3DTA_* third arg for triadic ops
+        /// </summary>
+        D3DTSS_ALPHAARG0 = 27,
+        /// <summary>
+        /// D3DTA_* arg for result (CURRENT or TEMP)
+        /// </summary>
+        D3DTSS_RESULTARG = 28,
+    }
+
+    public enum D3DBASISTYPE : uint {
+        D3DBASIS_BEZIER      = 0,
+        D3DBASIS_BSPLINE     = 1,
+        D3DBASIS_INTERPOLATE = 2,
+    }
+
+    public enum D3DORDERTYPE : uint {
+        D3DORDER_LINEAR  = 1,
+        D3DORDER_CUBIC   = 3,
+        D3DORDER_QUINTIC = 5,
+    }
+
+    public enum D3DZBUFFERTYPE : uint {
+        D3DZB_FALSE = 0,
+        /// <summary>
+        /// Z buffering
+        /// </summary>
+        D3DZB_TRUE = 1,
+        /// <summary>
+        /// W buffering
+        /// </summary>
+        D3DZB_USEW = 2,
+    }
+
+    public enum D3DSTENCILOP : uint {
+        D3DSTENCILOP_KEEP    = 1,
+        D3DSTENCILOP_ZERO    = 2,
+        D3DSTENCILOP_REPLACE = 3,
+        D3DSTENCILOP_INCRSAT = 4,
+        D3DSTENCILOP_DECRSAT = 5,
+        D3DSTENCILOP_INVERT  = 6,
+        D3DSTENCILOP_INCR    = 7,
+    }
+
+    public enum D3DFOGMODE : uint {
+        D3DFOG_NONE   = 0,
+        D3DFOG_EXP    = 1,
+        D3DFOG_EXP2   = 2,
+        D3DFOG_LINEAR = 3,
+    }
+
+    public enum D3DFILLMODE : uint {
+        D3DFILL_POINT     = 1,
+        D3DFILL_WIREFRAME = 2,
+        D3DFILL_SOLID     = 3,
+    }
+
+    public enum D3DSHADEMODE : uint {
+        D3DSHADE_FLAT    = 1,
+        D3DSHADE_GOURAUD = 2,
+        D3DSHADE_PHONG   = 3,
+    }
+
+    public enum D3DBLEND : uint {
+        D3DBLEND_ZERO            = 1,
+        D3DBLEND_ONE             = 2,
+        D3DBLEND_SRCCOLOR        = 3,
+        D3DBLEND_INVSRCCOLOR     = 4,
+        D3DBLEND_SRCALPHA        = 5,
+        D3DBLEND_INVSRCALPHA     = 6,
+        D3DBLEND_DESTALPHA       = 7,
+        D3DBLEND_INVDESTALPHA    = 8,
+        D3DBLEND_DESTCOLOR       = 9,
+        D3DBLEND_INVDESTCOLOR    = 10,
+        D3DBLEND_SRCALPHASAT     = 11,
+        D3DBLEND_BOTHSRCALPHA    = 12,
+        D3DBLEND_BOTHINVSRCALPHA = 13,
+    }
+
+    public enum D3DCULL : uint {
+        D3DCULL_NONE = 1,
+        D3DCULL_CW   = 2,
+        D3DCULL_CCW  = 3,
+    }
 }

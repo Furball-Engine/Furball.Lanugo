@@ -1,4 +1,6 @@
 using System;
+using System.Drawing;
+using System.Numerics;
 
 namespace Furball.Lanugo {
 
@@ -137,4 +139,171 @@ namespace Furball.Lanugo {
         public uint FullScreen_RefreshRateInHz;
         public uint FullScreen_PresentationInterval;
     }
+
+    public struct D3DDEVICE_CREATION_PARAMETERS {
+        public uint       AdapterOrdinal;
+        public D3DDEVTYPE DeviceType;
+        public IntPtr     FocusWindow;
+        public uint       BehaviourFlags;
+    }
+
+    public struct RECT {
+        public uint Left, Top, Right, Bottom;
+    }
+
+    public struct D3DRECT {
+        public uint X1, Y1, X2, Y2;
+    }
+
+    public struct D3DPOINT {
+        public uint X, Y;
+    }
+
+    public unsafe struct D3DRGNDATA {
+        public       uint    Size;
+        public       uint    Type;
+        public       uint    Count;
+        public       uint    RgnSize;
+        public       D3DRECT Bound;
+        public fixed char    Buffer[1];
+    }
+
+    public struct D3DRASTER_STATUS {
+        public int  InVBlank;
+        public uint ScanLine;
+    }
+
+    public unsafe struct D3DGAMMARAMP {
+        public fixed ushort Red[256];
+        public fixed ushort Green[256];
+        public fixed ushort Blue[256];
+    }
+
+    public struct D3DVIEWPORT8 {
+        public uint  X,    Y, Width, Height;
+        public float MinZ, MaxZ;
+    }
+
+    public struct D3DCOLOR {
+        public uint ColorValue;
+
+        public static D3DCOLOR FromArgb(int a, int r, int g, int b) {
+            return new D3DCOLOR {
+                ColorValue = (uint) ( ((a & 0xff) << 24) + ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff) )
+            };
+        }
+    }
+
+    public struct D3DCOLORVALUE {
+        public float R, G, B, A;
+    }
+
+    public struct D3DMATERIAL8 {
+        /// <summary>
+        /// Diffuse color RGBA
+        /// </summary>
+        public D3DCOLORVALUE Diffuse;
+        /// <summary>
+        /// Ambient color RGB
+        /// </summary>
+        public D3DCOLORVALUE Ambient;
+        /// <summary>
+        /// Specular 'shininess
+        /// </summary>
+        public D3DCOLORVALUE Specular;
+        /// <summary>
+        /// Emissive color RGB
+        /// </summary>
+        public D3DCOLORVALUE Emissive;
+        /// <summary>
+        /// Sharpness if specular highlight
+        /// </summary>
+        public float Power;
+    }
+
+    public struct D3DLIGHT8 {
+        /// <summary>
+        /// Type of light source
+        /// </summary>
+        public D3DLIGHTTYPE Type;
+        /// <summary>
+        /// Diffuse color of the light
+        /// </summary>
+        public D3DCOLORVALUE Diffuse;
+        /// <summary>
+        /// Specular color of the light
+        /// </summary>
+        public D3DCOLORVALUE Specular;
+        /// <summary>
+        /// Ambient color of the light
+        /// </summary>
+        public D3DCOLORVALUE Ambient;
+        /// <summary>
+        /// Position in World Space
+        /// </summary>
+        public Vector3 Position;
+        /// <summary>
+        /// Direction in World Space
+        /// </summary>
+        public Vector3 Direction;
+        /// <summary>
+        /// Cutoff Range
+        /// </summary>
+        public float Range;
+        /// <summary>
+        /// Falloff
+        /// </summary>
+        public float Falloff;
+        /// <summary>
+        /// Constant Attenuation
+        /// </summary>
+        public float Attenuation0;
+        /// <summary>
+        /// Linear Attenuation
+        /// </summary>
+        public float Attenuation1;
+        /// <summary>
+        /// Quadratic Attenuation
+        /// </summary>
+        public float Attenuation2;
+        /// <summary>
+        /// Inner angle of spotlight cone
+        /// </summary>
+        public float Theta;
+        /// <summary>
+        /// Outer angle of spotlight cone
+        /// </summary>
+        public float Phi;
+    }
+
+    public struct D3DCLIPSTATUS8 {
+        public uint ClipUnion, ClipIntersection;
+    }
+
+    public struct D3DPALETTEENTRY {
+        public byte Red, Green, Blue, Flags;
+    }
+
+    public struct D3DRECTPATCH_INFO {
+        public uint         StartVertexOffsetWidth;
+        public uint         StartVertexOffsetHeight;
+        public uint         Width;
+        public uint         Height;
+        public uint         Stride;
+        public D3DBASISTYPE Basis;
+        public D3DORDERTYPE Order;
+    }
+
+    public struct D3DTRIPATCH_INFO {
+        public uint         StartVertexOffset;
+        public uint         NumVerticies;
+        public D3DBASISTYPE Basis;
+        public D3DORDERTYPE Order;
+    }
+
+    public struct D3DLINEPATTERN {
+        public ushort RepeatFactor, LinePattern;
+    }
+
+
 }
