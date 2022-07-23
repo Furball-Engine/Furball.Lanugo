@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -278,6 +279,8 @@ namespace Furball.Lanugo {
             int ret = _createDeviceDelegate(_d3d8, adapter, deviceType, focusWindow, behaviorFlags, presentationParameters, &ptrDevice);
 
             device = ptrDevice;
+
+            new Direct3DDevice8DelegateHolder(device->Vtbl);
 
             return (D3DRESULT) ret;
         }
