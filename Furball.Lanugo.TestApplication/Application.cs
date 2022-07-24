@@ -38,7 +38,7 @@ namespace Furball.Lanugo.TestApplication {
 
             WindowOptions options = WindowOptions.Default;
             options.VSync                   = false;
-            options.ShouldSwapAutomatically = false;
+            //options.ShouldSwapAutomatically = false;
             options.API                     = GraphicsAPI.None;
 
 
@@ -67,7 +67,8 @@ namespace Furball.Lanugo.TestApplication {
         }
 
         private void Draw(double delta) {
-
+            this._device->Clear(D3DCLEAR.D3DCLEAR_TARGET, D3DCOLOR.FromArgb(255, 255, 0, 0));
+            this._device->Present();
         }
     }
 }

@@ -4,106 +4,108 @@ using System.Numerics;
 using System.Runtime.InteropServices;
 
 namespace Furball.Lanugo {
-    internal unsafe class Direct3DDevice8DelegateHolder {
-        public static Dictionary<IntPtr, Direct3DDevice8DelegateHolder> DelegateCaches = new();
+    internal unsafe class IDirect3DDevice8DelegateHolder {
+        internal static Dictionary<IntPtr, IDirect3DDevice8DelegateHolder> DelegateCaches = new();
 
-        internal delegate int QueryInterfaceDelegate(Guid riid, void** ppvObj);
-        internal delegate uint AddRefDelegate();
-        internal delegate uint ReleaseDelegate();
-        internal delegate int TestCooperativeLevelDelegate();
-        internal delegate uint GetAvailableTextureMemDelegate();
-        internal delegate int ResourceManagerDiscardBytesDelegate(int Bytes);
-        internal delegate int GetDirect3DDelegate(IDirect3D8** ppD3D8);
-        internal delegate int GetDeviceCapsDelegate(D3DCAPS8* pCaps);
-        internal delegate int GetDisplayModeDelegate(D3DDISPLAYMODE* pMode);
-        internal delegate int GetCreationParametersDelegate(D3DDEVICE_CREATION_PARAMETERS* pParameters);
-        internal delegate int SetCursorPropertiesDelegate(uint XHotSpot, uint YHotSpot, IDirect3DSurface8* pCursorBitmap);
-        internal delegate void SetCursorPositionDelegate(uint XScreenSpace, uint YScreenSpace, int Flags);
-        internal delegate bool ShowCursorDelegate(int bShow);
-        internal delegate int CreateAdditionalSwapChainDelegate(D3DPRESENT_PARAMETERS* pPresentationParameters, IDirect3DSwapChain8** pSwapChain);
-        internal delegate int ResetDelegate(D3DPRESENT_PARAMETERS* pPresentationParameters);
-        internal delegate int PresentDelegate(RECT* pSourceRect, RECT* pDestRect, IntPtr hDestWindowOverride, void* pDirtyRegion);
-        internal delegate int GetBackBufferDelegate(uint BackBuffer, D3DBACKBUFFER_TYPE Type, IDirect3DSurface8** ppBackBuffer);
-        internal delegate int GetRasterStatusDelegate(D3DRASTER_STATUS* pRasterStatus);
-        internal delegate void SetGammaRampDelegate(int Flags, D3DGAMMARAMP* pRamp);
-        internal delegate void GetGammaRampDelegate(D3DGAMMARAMP* pRamp);
-        internal delegate int CreateTextureDelegate(uint Width, uint Height, uint Levels, int Usage, D3DFORMAT Format, D3DPOOL Pool, IDirect3DTexture8** ppTexture);
-        internal delegate int CreateVolumeTextureDelegate(uint Width, uint Height, uint Depth, uint Levels, int Usage, D3DFORMAT Format, D3DPOOL Pool, IDirect3DVolumeTexture8** ppVolumeTexture);
-        internal delegate int CreateCubeTextureDelegate(uint EdgeLength, uint Levels, int Usage, D3DFORMAT Format, D3DPOOL Pool, IDirect3DCubeTexture8** ppCubeTexture);
-        internal delegate int CreateVertexBufferDelegate(uint Length, int Usage, int FVF, D3DPOOL Pool, IDirect3DVertexBuffer8** ppVertexBuffer);
-        internal delegate int CreateIndexBufferDelegate(uint Length, int Usage, D3DFORMAT Format, D3DPOOL Pool, IDirect3DIndexBuffer8** ppIndexBuffer);
-        internal delegate int CreateRenderTargetDelegate(uint Width, uint Height, D3DFORMAT Format, D3DMULTISAMPLE_TYPE MultiSample, int Lockable, IDirect3DSurface8** ppSurface);
-        internal delegate int CreateDepthStencilSurfaceDelegate(uint Width, uint Height, D3DFORMAT Format, D3DMULTISAMPLE_TYPE MultiSample, IDirect3DSurface8** ppSurface);
-        internal delegate int CreateImageSurfaceDelegate(uint Width, uint Height, D3DFORMAT Format, IDirect3DSurface8** ppSurface);
-        internal delegate int CopyRectsDelegate(IDirect3DSurface8* pSourceSurface, RECT* pSourceRectsArray, uint cRects, IDirect3DSurface8* pDestinationSurface, D3DPOINT* pDestPointsArray);
-        internal delegate int UpdateTextureDelegate(IDirect3DBaseTexture8* pSourceTexture, IDirect3DBaseTexture8* pDestinationTexture);
-        internal delegate int GetFrontBufferDelegate(IDirect3DSurface8* pDestSurface);
-        internal delegate int SetRenderTargetDelegate(IDirect3DSurface8* pRenderTarget, IDirect3DSurface8* pNewZStencil);
-        internal delegate int GetRenderTargetDelegate(IDirect3DSurface8** ppRenderTarget);
-        internal delegate int GetDepthStencilSurfaceDelegate(IDirect3DSurface8** ppZStencilSurface);
-        internal delegate int BeginSceneDelegate();
-        internal delegate int EndSceneDelegate();
-        internal delegate int ClearDelegate(int Count, D3DRECT* pRects, int Flags, D3DCOLOR Color, float Z, int Stencil);
-        internal delegate int SetTransformDelegate(D3DTRANSFORMSTATETYPE State, Matrix4x4* pMatrix);
-        internal delegate int GetTransformDelegate(D3DTRANSFORMSTATETYPE State, Matrix4x4* pMatrix);
-        internal delegate int MultiplyTransformDelegate(D3DTRANSFORMSTATETYPE state, Matrix4x4* pMatrix);
-        internal delegate int SetViewportDelegate(D3DVIEWPORT8* pViewport);
-        internal delegate int GetViewportDelegate(D3DVIEWPORT8* pViewport);
-        internal delegate int SetMaterialDelegate(D3DMATERIAL8* pMaterial);
-        internal delegate int GetMaterialDelegate(D3DMATERIAL8* pMaterial);
-        internal delegate int SetLightDelegate(int Index, D3DLIGHT8* light);
-        internal delegate int GetLightDelegate(int Index, D3DLIGHT8* light);
-        internal delegate int LightEnableDelegate(int Index, int Enable);
-        internal delegate int GetLightEnableDelegate(int Index, int* pEnable);
-        internal delegate int SetClipPlaneDelegate(int Index, float* pPlane);
-        internal delegate int GetClipPlaneDelegate(int Index, float* pPlane);
-        internal delegate int SetRenderStateDelegate(D3DRENDERSTATETYPE State, int Value);
-        internal delegate int GetRenderStateDelegate(D3DRENDERSTATETYPE State, int* pValue);
-        internal delegate int BeginStateBlockDelegate();
-        internal delegate int EndStateBlockDelegate(int* pToken);
-        internal delegate int ApplyStateBlockDelegate(int Token);
-        internal delegate int CaptureStateBlockDelegate(int Token);
-        internal delegate int DeleteStateBlockDelegate(int Token);
-        internal delegate int CreateStateBlockDelegate(D3DSTATEBLOCKTYPE Type, int* pToken);
-        internal delegate int SetClipStatusDelegate(D3DCLIPSTATUS8* pClipStatus);
-        internal delegate int GetClipStatusDelegate(D3DCLIPSTATUS8* pClipStatus);
-        internal delegate int GetTextureDelegate(int Stage, IDirect3DBaseTexture8** ppTexture);
-        internal delegate int SetTextureDelegate(int Stage, IDirect3DBaseTexture8* pTexture);
-        internal delegate int GetTextureStageStateDelegate(int Stage, D3DTEXTURESTAGESTATETYPE Type, int* pValue);
-        internal delegate int SetTextureStageStateDelegate(int Stage, D3DTEXTURESTAGESTATETYPE Type, int Value);
-        internal delegate int ValidateDeviceDelegate(int* pNumPasses);
-        internal delegate int GetInfoDelegate(int DevInfoID, void* pDevInfoStruct, int DevInfoStructSize);
-        internal delegate int SetPaletteEntriesDelegate(uint PaletteNumber, D3DPALETTEENTRY* pEntries);
-        internal delegate int GetPaletteEntriesDelegate(uint PaletteNumber, D3DPALETTEENTRY* pEntries);
-        internal delegate int SetCurrentTexturePaletteDelegate(uint PaletteNumber);
-        internal delegate int GetCurrentTexturePaletteDelegate(uint* PaletteNumber);
-        internal delegate int DrawPrimitiveDelegate(D3DPRIMITIVETYPE PrimitiveType, uint StartVertex, uint PrimitiveCount);
-        internal delegate int DrawIndexedPrimitiveDelegate(D3DPRIMITIVETYPE primitiveType, uint minIndex, uint NumVertices, uint startIndex, uint primCount);
-        internal delegate int DrawPrimitiveUPDelegate(D3DPRIMITIVETYPE PrimitiveType, uint PrimitiveCount, void* pVertexStreamZeroData, uint VertexStreamZeroStride);
-        internal delegate int DrawIndexedPrimitiveUPDelegate(D3DPRIMITIVETYPE PrimitiveType, uint MinVertexIndex, uint NumVertexIndices, uint PrimitiveCount, void* pIndexData, D3DFORMAT IndexDataFormat, void* pVertexStreamZeroData, uint VertexStreamZeroStride);
-        internal delegate int ProcessVerticesDelegate(uint SrcStartIndex, uint DestIndex, uint VertexCount, IDirect3DVertexBuffer8* pDestBuffer, int Flags);
-        internal delegate int CreateVertexShaderDelegate(int* pDeclaration, int* pFunction, int* pHandle, int Usage);
-        internal delegate int SetVertexShaderDelegate(int Handle);
-        internal delegate int GetVertexShaderDelegate(int* pHandle);
-        internal delegate int DeleteVertexShaderDelegate(int Handle);
-        internal delegate int SetVertexShaderConstantDelegate(int Register, void* pConstantData, int ConstantCount);
-        internal delegate int GetVertexShaderConstantDelegate(int Register, void* pConstantData, int ConstantCount);
-        internal delegate int GetVertexShaderDeclarationDelegate(int Handle, void* pData, int* pSizeOfData);
-        internal delegate int GetVertexShaderFunctionDelegate(int Handle, void* pData, int* pSizeOfData);
-        internal delegate int SetStreamSourceDelegate(uint StreamNumber, IDirect3DVertexBuffer8* pStreamData, uint Stride);
-        internal delegate int GetStreamSourceDelegate(uint StreamNumber, IDirect3DVertexBuffer8** ppStreamData, uint* pStride);
-        internal delegate int SetIndicesDelegate(IDirect3DIndexBuffer8* pIndexData, uint BaseVertexIndex);
-        internal delegate int GetIndicesDelegate(IDirect3DIndexBuffer8** ppIndexData, uint* pBaseVertexIndex);
-        internal delegate int CreatePixelShaderDelegate(int* pFunction, int* pHandle);
-        internal delegate int SetPixelShaderDelegate(int Handle);
-        internal delegate int GetPixelShaderDelegate(int* pHandle);
-        internal delegate int DeletePixelShaderDelegate(int Handle);
-        internal delegate int SetPixelShaderConstantDelegate(int Register, void* pConstantData, int ConstantCount);
-        internal delegate int GetPixelShaderConstantDelegate(int Register, void* pConstantData, int ConstantCount);
-        internal delegate int GetPixelShaderFunctionDelegate(int Handle, void* pData, int* pSizeOfData);
-        internal delegate int DrawRectPatchDelegate(uint Handle, float* pNumSegs, D3DRECTPATCH_INFO* pRectPatchInfo);
-        internal delegate int DrawTriPatchDelegate(uint Handle, float* pNumSegs, D3DTRIPATCH_INFO* pTriPatchInfo);
-        internal delegate int DeletePatchDelegate(uint Handle);
+        internal IDirect3DDevice8* DevicePointer;
+
+        internal delegate int  QueryInterfaceDelegate(IDirect3DDevice8* device, Guid riid, void** ppvObj);
+        internal delegate uint AddRefDelegate(IDirect3DDevice8* device);
+        internal delegate uint ReleaseDelegate(IDirect3DDevice8* device);
+        internal delegate int  TestCooperativeLevelDelegate(IDirect3DDevice8* device);
+        internal delegate uint GetAvailableTextureMemDelegate(IDirect3DDevice8* device);
+        internal delegate int  ResourceManagerDiscardBytesDelegate(IDirect3DDevice8* device, int Bytes);
+        internal delegate int  GetDirect3DDelegate(IDirect3DDevice8* device, IDirect3D8** ppD3D8);
+        internal delegate int  GetDeviceCapsDelegate(IDirect3DDevice8* device, D3DCAPS8* pCaps);
+        internal delegate int  GetDisplayModeDelegate(IDirect3DDevice8* device, D3DDISPLAYMODE* pMode);
+        internal delegate int  GetCreationParametersDelegate(IDirect3DDevice8* device, D3DDEVICE_CREATION_PARAMETERS* pParameters);
+        internal delegate int  SetCursorPropertiesDelegate(IDirect3DDevice8* device, uint XHotSpot, uint YHotSpot, IDirect3DSurface8* pCursorBitmap);
+        internal delegate void SetCursorPositionDelegate(IDirect3DDevice8* device, uint XScreenSpace, uint YScreenSpace, int Flags);
+        internal delegate bool ShowCursorDelegate(IDirect3DDevice8* device, int bShow);
+        internal delegate int  CreateAdditionalSwapChainDelegate(IDirect3DDevice8* device, D3DPRESENT_PARAMETERS* pPresentationParameters, IDirect3DSwapChain8** pSwapChain);
+        internal delegate int  ResetDelegate(IDirect3DDevice8* device, D3DPRESENT_PARAMETERS* pPresentationParameters);
+        internal delegate int  PresentDelegate(IDirect3DDevice8* device, RECT* pSourceRect, RECT* pDestRect, IntPtr hDestWindowOverride, void* pDirtyRegion);
+        internal delegate int  GetBackBufferDelegate(IDirect3DDevice8* device, uint BackBuffer, D3DBACKBUFFER_TYPE Type, IDirect3DSurface8** ppBackBuffer);
+        internal delegate int  GetRasterStatusDelegate(IDirect3DDevice8* device, D3DRASTER_STATUS* pRasterStatus);
+        internal delegate void SetGammaRampDelegate(IDirect3DDevice8* device, int Flags, D3DGAMMARAMP* pRamp);
+        internal delegate void GetGammaRampDelegate(IDirect3DDevice8* device, D3DGAMMARAMP* pRamp);
+        internal delegate int  CreateTextureDelegate(IDirect3DDevice8* device, uint Width, uint Height, uint Levels, int Usage, D3DFORMAT Format, D3DPOOL Pool, IDirect3DTexture8** ppTexture);
+        internal delegate int  CreateVolumeTextureDelegate(IDirect3DDevice8* device, uint Width, uint Height, uint Depth, uint Levels, int Usage, D3DFORMAT Format, D3DPOOL Pool, IDirect3DVolumeTexture8** ppVolumeTexture);
+        internal delegate int  CreateCubeTextureDelegate(IDirect3DDevice8* device, uint EdgeLength, uint Levels, int Usage, D3DFORMAT Format, D3DPOOL Pool, IDirect3DCubeTexture8** ppCubeTexture);
+        internal delegate int  CreateVertexBufferDelegate(IDirect3DDevice8* device, uint Length, int Usage, int FVF, D3DPOOL Pool, IDirect3DVertexBuffer8** ppVertexBuffer);
+        internal delegate int  CreateIndexBufferDelegate(IDirect3DDevice8* device, uint Length, int Usage, D3DFORMAT Format, D3DPOOL Pool, IDirect3DIndexBuffer8** ppIndexBuffer);
+        internal delegate int  CreateRenderTargetDelegate(IDirect3DDevice8* device, uint Width, uint Height, D3DFORMAT Format, D3DMULTISAMPLE_TYPE MultiSample, int Lockable, IDirect3DSurface8** ppSurface);
+        internal delegate int  CreateDepthStencilSurfaceDelegate(IDirect3DDevice8* device, uint Width, uint Height, D3DFORMAT Format, D3DMULTISAMPLE_TYPE MultiSample, IDirect3DSurface8** ppSurface);
+        internal delegate int  CreateImageSurfaceDelegate(IDirect3DDevice8* device, uint Width, uint Height, D3DFORMAT Format, IDirect3DSurface8** ppSurface);
+        internal delegate int  CopyRectsDelegate(IDirect3DDevice8* device, IDirect3DSurface8* pSourceSurface, RECT* pSourceRectsArray, uint cRects, IDirect3DSurface8* pDestinationSurface, D3DPOINT* pDestPointsArray);
+        internal delegate int  UpdateTextureDelegate(IDirect3DDevice8* device, IDirect3DBaseTexture8* pSourceTexture, IDirect3DBaseTexture8* pDestinationTexture);
+        internal delegate int  GetFrontBufferDelegate(IDirect3DDevice8* device, IDirect3DSurface8* pDestSurface);
+        internal delegate int  SetRenderTargetDelegate(IDirect3DDevice8* device, IDirect3DSurface8* pRenderTarget, IDirect3DSurface8* pNewZStencil);
+        internal delegate int  GetRenderTargetDelegate(IDirect3DDevice8* device, IDirect3DSurface8** ppRenderTarget);
+        internal delegate int  GetDepthStencilSurfaceDelegate(IDirect3DDevice8* device, IDirect3DSurface8** ppZStencilSurface);
+        internal delegate int  BeginSceneDelegate(IDirect3DDevice8* device);
+        internal delegate int  EndSceneDelegate(IDirect3DDevice8* device);
+        internal delegate int  ClearDelegate(IDirect3DDevice8* device, int Count, D3DRECT* pRects, D3DCLEAR Flags, D3DCOLOR Color, float Z, int Stencil);
+        internal delegate int  SetTransformDelegate(IDirect3DDevice8* device, D3DTRANSFORMSTATETYPE State, Matrix4x4* pMatrix);
+        internal delegate int  GetTransformDelegate(IDirect3DDevice8* device, D3DTRANSFORMSTATETYPE State, Matrix4x4* pMatrix);
+        internal delegate int  MultiplyTransformDelegate(IDirect3DDevice8* device, D3DTRANSFORMSTATETYPE state, Matrix4x4* pMatrix);
+        internal delegate int  SetViewportDelegate(IDirect3DDevice8* device, D3DVIEWPORT8* pViewport);
+        internal delegate int  GetViewportDelegate(IDirect3DDevice8* device, D3DVIEWPORT8* pViewport);
+        internal delegate int  SetMaterialDelegate(IDirect3DDevice8* device, D3DMATERIAL8* pMaterial);
+        internal delegate int  GetMaterialDelegate(IDirect3DDevice8* device, D3DMATERIAL8* pMaterial);
+        internal delegate int  SetLightDelegate(IDirect3DDevice8* device, int Index, D3DLIGHT8* light);
+        internal delegate int  GetLightDelegate(IDirect3DDevice8* device, int Index, D3DLIGHT8* light);
+        internal delegate int  LightEnableDelegate(IDirect3DDevice8* device, int Index, int Enable);
+        internal delegate int  GetLightEnableDelegate(IDirect3DDevice8* device, int Index, int* pEnable);
+        internal delegate int  SetClipPlaneDelegate(IDirect3DDevice8* device, int Index, float* pPlane);
+        internal delegate int  GetClipPlaneDelegate(IDirect3DDevice8* device, int Index, float* pPlane);
+        internal delegate int  SetRenderStateDelegate(IDirect3DDevice8* device, D3DRENDERSTATETYPE State, int Value);
+        internal delegate int  GetRenderStateDelegate(IDirect3DDevice8* device, D3DRENDERSTATETYPE State, int* pValue);
+        internal delegate int  BeginStateBlockDelegate(IDirect3DDevice8* device);
+        internal delegate int  EndStateBlockDelegate(IDirect3DDevice8* device, int* pToken);
+        internal delegate int  ApplyStateBlockDelegate(IDirect3DDevice8* device, int Token);
+        internal delegate int  CaptureStateBlockDelegate(IDirect3DDevice8* device, int Token);
+        internal delegate int  DeleteStateBlockDelegate(IDirect3DDevice8* device, int Token);
+        internal delegate int  CreateStateBlockDelegate(IDirect3DDevice8* device, D3DSTATEBLOCKTYPE Type, int* pToken);
+        internal delegate int  SetClipStatusDelegate(IDirect3DDevice8* device, D3DCLIPSTATUS8* pClipStatus);
+        internal delegate int  GetClipStatusDelegate(IDirect3DDevice8* device, D3DCLIPSTATUS8* pClipStatus);
+        internal delegate int  GetTextureDelegate(IDirect3DDevice8* device, int Stage, IDirect3DBaseTexture8** ppTexture);
+        internal delegate int  SetTextureDelegate(IDirect3DDevice8* device, int Stage, IDirect3DBaseTexture8* pTexture);
+        internal delegate int  GetTextureStageStateDelegate(IDirect3DDevice8* device, int Stage, D3DTEXTURESTAGESTATETYPE Type, int* pValue);
+        internal delegate int  SetTextureStageStateDelegate(IDirect3DDevice8* device, int Stage, D3DTEXTURESTAGESTATETYPE Type, int Value);
+        internal delegate int  ValidateDeviceDelegate(IDirect3DDevice8* device, int* pNumPasses);
+        internal delegate int  GetInfoDelegate(IDirect3DDevice8* device, int DevInfoID, void* pDevInfoStruct, int DevInfoStructSize);
+        internal delegate int  SetPaletteEntriesDelegate(IDirect3DDevice8* device, uint PaletteNumber, D3DPALETTEENTRY* pEntries);
+        internal delegate int  GetPaletteEntriesDelegate(IDirect3DDevice8* device, uint PaletteNumber, D3DPALETTEENTRY* pEntries);
+        internal delegate int  SetCurrentTexturePaletteDelegate(IDirect3DDevice8* device, uint PaletteNumber);
+        internal delegate int  GetCurrentTexturePaletteDelegate(IDirect3DDevice8* device, uint* PaletteNumber);
+        internal delegate int  DrawPrimitiveDelegate(IDirect3DDevice8* device, D3DPRIMITIVETYPE PrimitiveType, uint StartVertex, uint PrimitiveCount);
+        internal delegate int  DrawIndexedPrimitiveDelegate(IDirect3DDevice8* device, D3DPRIMITIVETYPE primitiveType, uint minIndex, uint NumVertices, uint startIndex, uint primCount);
+        internal delegate int  DrawPrimitiveUPDelegate(IDirect3DDevice8* device, D3DPRIMITIVETYPE PrimitiveType, uint PrimitiveCount, void* pVertexStreamZeroData, uint VertexStreamZeroStride);
+        internal delegate int  DrawIndexedPrimitiveUPDelegate(IDirect3DDevice8* device, D3DPRIMITIVETYPE PrimitiveType, uint MinVertexIndex, uint NumVertexIndices, uint PrimitiveCount, void* pIndexData, D3DFORMAT IndexDataFormat, void* pVertexStreamZeroData, uint VertexStreamZeroStride);
+        internal delegate int  ProcessVerticesDelegate(IDirect3DDevice8* device, uint SrcStartIndex, uint DestIndex, uint VertexCount, IDirect3DVertexBuffer8* pDestBuffer, int Flags);
+        internal delegate int  CreateVertexShaderDelegate(IDirect3DDevice8* device, int* pDeclaration, int* pFunction, int* pHandle, int Usage);
+        internal delegate int  SetVertexShaderDelegate(IDirect3DDevice8* device, int Handle);
+        internal delegate int  GetVertexShaderDelegate(IDirect3DDevice8* device, int* pHandle);
+        internal delegate int  DeleteVertexShaderDelegate(IDirect3DDevice8* device, int Handle);
+        internal delegate int  SetVertexShaderConstantDelegate(IDirect3DDevice8* device, int Register, void* pConstantData, int ConstantCount);
+        internal delegate int  GetVertexShaderConstantDelegate(IDirect3DDevice8* device, int Register, void* pConstantData, int ConstantCount);
+        internal delegate int  GetVertexShaderDeclarationDelegate(IDirect3DDevice8* device, int Handle, void* pData, int* pSizeOfData);
+        internal delegate int  GetVertexShaderFunctionDelegate(IDirect3DDevice8* device, int Handle, void* pData, int* pSizeOfData);
+        internal delegate int  SetStreamSourceDelegate(IDirect3DDevice8* device, uint StreamNumber, IDirect3DVertexBuffer8* pStreamData, uint Stride);
+        internal delegate int  GetStreamSourceDelegate(IDirect3DDevice8* device, uint StreamNumber, IDirect3DVertexBuffer8** ppStreamData, uint* pStride);
+        internal delegate int  SetIndicesDelegate(IDirect3DDevice8* device, IDirect3DIndexBuffer8* pIndexData, uint BaseVertexIndex);
+        internal delegate int  GetIndicesDelegate(IDirect3DDevice8* device, IDirect3DIndexBuffer8** ppIndexData, uint* pBaseVertexIndex);
+        internal delegate int  CreatePixelShaderDelegate(IDirect3DDevice8* device, int* pFunction, int* pHandle);
+        internal delegate int  SetPixelShaderDelegate(IDirect3DDevice8* device, int Handle);
+        internal delegate int  GetPixelShaderDelegate(IDirect3DDevice8* device, int* pHandle);
+        internal delegate int  DeletePixelShaderDelegate(IDirect3DDevice8* device, int Handle);
+        internal delegate int  SetPixelShaderConstantDelegate(IDirect3DDevice8* device, int Register, void* pConstantData, int ConstantCount);
+        internal delegate int  GetPixelShaderConstantDelegate(IDirect3DDevice8* device, int Register, void* pConstantData, int ConstantCount);
+        internal delegate int  GetPixelShaderFunctionDelegate(IDirect3DDevice8* device, int Handle, void* pData, int* pSizeOfData);
+        internal delegate int  DrawRectPatchDelegate(IDirect3DDevice8* device, uint Handle, float* pNumSegs, D3DRECTPATCH_INFO* pRectPatchInfo);
+        internal delegate int  DrawTriPatchDelegate(IDirect3DDevice8* device, uint Handle, float* pNumSegs, D3DTRIPATCH_INFO* pTriPatchInfo);
+        internal delegate int  DeletePatchDelegate(IDirect3DDevice8* device, uint Handle);
 
         internal QueryInterfaceDelegate              QueryInterfaceDelegateFunction;
         internal AddRefDelegate                      AddRefDelegateFunction;
@@ -203,7 +205,7 @@ namespace Furball.Lanugo {
         internal DrawTriPatchDelegate                DrawTriPatchDelegateFunction;
         internal DeletePatchDelegate                 DeletePatchDelegateFunction;
 
-        public Direct3DDevice8DelegateHolder(void** vtbl) {
+        public IDirect3DDevice8DelegateHolder(void** vtbl) {
             QueryInterfaceDelegateFunction              = Marshal.GetDelegateForFunctionPointer<QueryInterfaceDelegate>((IntPtr)vtbl[0]);
             AddRefDelegateFunction                      = Marshal.GetDelegateForFunctionPointer<AddRefDelegate>((IntPtr)vtbl[1]);
             ReleaseDelegateFunction                     = Marshal.GetDelegateForFunctionPointer<ReleaseDelegate>((IntPtr)vtbl[2]);
@@ -310,5 +312,49 @@ namespace Furball.Lanugo {
         public void** Vtbl;
 
         public IntPtr Identifer => (IntPtr)Vtbl;
+
+        public D3DRESULT Clear(D3DRECT[] rects, D3DCLEAR clearTarget, D3DCOLOR clearColor, float z, int stencil) {
+            IDirect3DDevice8DelegateHolder delegateHolder = IDirect3DDevice8DelegateHolder.DelegateCaches[Identifer];
+
+            int count = rects.Length;
+
+            fixed (D3DRECT* ptrRects = rects) {
+                int ret = delegateHolder.ClearDelegateFunction(delegateHolder.DevicePointer, count, ptrRects, clearTarget, clearColor, z, stencil);
+
+                return (D3DRESULT) ret;
+            }
+        }
+
+        public D3DRESULT Clear(D3DCLEAR clearTarget, D3DCOLOR clearColor, float z = 0, int stencil = 0) {
+            IDirect3DDevice8DelegateHolder delegateHolder = IDirect3DDevice8DelegateHolder.DelegateCaches[Identifer];
+
+            int ret = delegateHolder.ClearDelegateFunction(delegateHolder.DevicePointer, 0, null, clearTarget, clearColor, z, stencil);
+
+            return (D3DRESULT) ret;
+        }
+
+        public D3DRESULT Present(RECT sourceRect, RECT destRect, IntPtr windowOverride) {
+            IDirect3DDevice8DelegateHolder delegateHolder = IDirect3DDevice8DelegateHolder.DelegateCaches[Identifer];
+
+            int ret = delegateHolder.PresentDelegateFunction(delegateHolder.DevicePointer, &sourceRect, &destRect, windowOverride, null);
+
+            return (D3DRESULT) ret;
+        }
+
+        public D3DRESULT Present(IntPtr windowOverride) {
+            IDirect3DDevice8DelegateHolder delegateHolder = IDirect3DDevice8DelegateHolder.DelegateCaches[Identifer];
+
+            int ret = delegateHolder.PresentDelegateFunction(delegateHolder.DevicePointer, null, null, windowOverride, null);
+
+            return (D3DRESULT) ret;
+        }
+
+        public D3DRESULT Present() {
+            IDirect3DDevice8DelegateHolder delegateHolder = IDirect3DDevice8DelegateHolder.DelegateCaches[Identifer];
+
+            int ret = delegateHolder.PresentDelegateFunction(delegateHolder.DevicePointer, null, null, IntPtr.Zero, null);
+
+            return (D3DRESULT) ret;
+        }
     }
 }

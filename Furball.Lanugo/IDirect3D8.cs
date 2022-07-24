@@ -280,7 +280,7 @@ namespace Furball.Lanugo {
 
             device = ptrDevice;
 
-            new Direct3DDevice8DelegateHolder(device->Vtbl);
+            new IDirect3DDevice8DelegateHolder(device->Vtbl) { DevicePointer = ptrDevice };
 
             return (D3DRESULT) ret;
         }

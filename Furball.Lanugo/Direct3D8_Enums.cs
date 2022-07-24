@@ -1017,4 +1017,11 @@ namespace Furball.Lanugo {
         D3DCULL_CW   = 2,
         D3DCULL_CCW  = 3,
     }
+
+    [Flags]
+    public enum D3DCLEAR : uint {
+        D3DCLEAR_TARGET = 1,
+        D3DCLEAR_ZBUFFER = 2,
+        D3DCLEAR_STENCIL = 4,
+    }
 }
