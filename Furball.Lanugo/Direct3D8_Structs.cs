@@ -1,6 +1,8 @@
 using System;
 using System.Drawing;
 using System.Numerics;
+using System.Runtime.InteropServices;
+using Silk.NET.Core;
 
 namespace Furball.Lanugo {
 
@@ -130,9 +132,9 @@ namespace Furball.Lanugo {
         public D3DMULTISAMPLE_TYPE MultiSampleType;
 
         public D3DSWAPEFFECT               SwapEffect;
-        public IntPtr                      hDeviceWindow;
-        public int                         Windowed;
-        public int                         EnableAutoDepthStencil;
+        public IntPtr                      DeviceWindow;
+        public Bool32                      Windowed;
+        public Bool32                      EnableAutoDepthStencil;
         public D3DFORMAT                   AutoDepthStencilFormat;
         public D3DPRESENT_PARAMETERS_FLAGS Flags;
 
@@ -305,5 +307,12 @@ namespace Furball.Lanugo {
         public ushort RepeatFactor, LinePattern;
     }
 
-
+    public struct D3DVERTEXBUFFERDESC {
+        public D3DFORMAT       Format;
+        public D3DRESOURCETYPE Type;
+        public D3DBUFFERUSAGE  Usage;
+        public D3DPOOL         Pool;
+        public uint            Size;
+        public D3DFVF          BufferFormat;
+    }
 }

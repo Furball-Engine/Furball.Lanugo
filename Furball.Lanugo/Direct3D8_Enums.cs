@@ -1024,4 +1024,59 @@ namespace Furball.Lanugo {
         D3DCLEAR_ZBUFFER = 2,
         D3DCLEAR_STENCIL = 4,
     }
+
+    [Flags]
+    public enum D3DLOCK : uint {
+        D3DLOCK_READONLY        = 16,
+        D3DLOCK_DISCARD         = 8192,
+        D3DLOCK_NOOVERWRITE     = 4096,
+        D3DLOCK_NOSYSLOCK       = 2048,
+        D3DLOCK_NO_DIRTY_UPDATE = 32768,
+    }
+
+    [Flags]
+    public enum D3DBUFFERUSAGE : uint {
+        D3DUSAGE_DEFAULT            = 0x00000000,
+        D3DUSAGE_WRITEONLY          = 0x00000008,
+        D3DUSAGE_SOFTWAREPROCESSING = 0x00000010,
+        D3DUSAGE_DONOTCLIP          = 0x00000020,
+        D3DUSAGE_POINTS             = 0x00000040,
+        D3DUSAGE_RTPATCHES          = 0x00000080,
+        D3DUSAGE_NPATCHES           = 0x00000100,
+        D3DUSAGE_DYNAMIC            = 0x00000200,
+    }
+
+    [Flags]
+    public enum D3DFVF : uint {
+        D3DFVF_RESERVED0     = 0x001,
+        D3DFVF_POSITION_MASK = 0x00E,
+        D3DFVF_XYZ           = 0x002,
+        D3DFVF_XYZRHW        = 0x004,
+        D3DFVF_XYZB1         = 0x006,
+        D3DFVF_XYZB2         = 0x008,
+        D3DFVF_XYZB3         = 0x00a,
+        D3DFVF_XYZB4         = 0x00c,
+        D3DFVF_XYZB5         = 0x00e,
+
+        D3DFVF_NORMAL   = 0x010,
+        D3DFVF_PSIZE    = 0x020,
+        D3DFVF_DIFFUSE  = 0x040,
+        D3DFVF_SPECULAR = 0x080,
+
+        D3DFVF_TEXCOUNT_MASK  = 0xf00,
+        D3DFVF_TEXCOUNT_SHIFT = 8,
+        D3DFVF_TEX0           = 0x000,
+        D3DFVF_TEX1           = 0x100,
+        D3DFVF_TEX2           = 0x200,
+        D3DFVF_TEX3           = 0x300,
+        D3DFVF_TEX4           = 0x400,
+        D3DFVF_TEX5           = 0x500,
+        D3DFVF_TEX6           = 0x600,
+        D3DFVF_TEX7           = 0x700,
+        D3DFVF_TEX8           = 0x800,
+
+        D3DFVF_LASTBETA_UBYTE4 = 0x1000,
+
+        D3DFVF_RESERVED2 = 0xE000,// 4 reserved bits
+    }
 }

@@ -12,8 +12,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Silk.NET.Core" Version="2.15.0" />
       <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
-      <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.6.0" />
       <PackageReference Include="System.Runtime.Numerics" Version="4.3.0" />
     </ItemGroup>
 

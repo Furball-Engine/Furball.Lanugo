@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using Silk.NET.Core;
 
 namespace Furball.Lanugo {
     internal unsafe class IDirect3DDevice8DelegateHolder {
@@ -21,9 +22,9 @@ namespace Furball.Lanugo {
         internal delegate int  GetCreationParametersDelegate(IDirect3DDevice8* device, D3DDEVICE_CREATION_PARAMETERS* pParameters);
         internal delegate int  SetCursorPropertiesDelegate(IDirect3DDevice8* device, uint XHotSpot, uint YHotSpot, IDirect3DSurface8* pCursorBitmap);
         internal delegate void SetCursorPositionDelegate(IDirect3DDevice8* device, uint XScreenSpace, uint YScreenSpace, int Flags);
-        internal delegate bool ShowCursorDelegate(IDirect3DDevice8* device, int bShow);
-        internal delegate int  CreateAdditionalSwapChainDelegate(IDirect3DDevice8* device, D3DPRESENT_PARAMETERS* pPresentationParameters, IDirect3DSwapChain8** pSwapChain);
-        internal delegate int  ResetDelegate(IDirect3DDevice8* device, D3DPRESENT_PARAMETERS* pPresentationParameters);
+        internal delegate Bool32 ShowCursorDelegate(IDirect3DDevice8* device, int bShow);
+        internal delegate int  CreateAdditionalSwapChainDelegate(IDirect3DDevice8* device, void* pPresentationParameters, IDirect3DSwapChain8** pSwapChain);
+        internal delegate int  ResetDelegate(IDirect3DDevice8* device, void* pPresentationParameters);
         internal delegate int  PresentDelegate(IDirect3DDevice8* device, RECT* pSourceRect, RECT* pDestRect, IntPtr hDestWindowOverride, void* pDirtyRegion);
         internal delegate int  GetBackBufferDelegate(IDirect3DDevice8* device, uint BackBuffer, D3DBACKBUFFER_TYPE Type, IDirect3DSurface8** ppBackBuffer);
         internal delegate int  GetRasterStatusDelegate(IDirect3DDevice8* device, D3DRASTER_STATUS* pRasterStatus);
@@ -311,50 +312,149 @@ namespace Furball.Lanugo {
     public unsafe struct IDirect3DDevice8 {
         public void** Vtbl;
 
-        public IntPtr Identifer => (IntPtr)Vtbl;
+        internal IntPtr Identifer => (IntPtr)Vtbl;
+        internal IDirect3DDevice8DelegateHolder Delegates => IDirect3DDevice8DelegateHolder.DelegateCaches[Identifer];
+        internal IDirect3DDevice8* DevicePointer => Delegates.DevicePointer;
 
         public D3DRESULT Clear(D3DRECT[] rects, D3DCLEAR clearTarget, D3DCOLOR clearColor, float z, int stencil) {
-            IDirect3DDevice8DelegateHolder delegateHolder = IDirect3DDevice8DelegateHolder.DelegateCaches[Identifer];
-
             int count = rects.Length;
 
             fixed (D3DRECT* ptrRects = rects) {
-                int ret = delegateHolder.ClearDelegateFunction(delegateHolder.DevicePointer, count, ptrRects, clearTarget, clearColor, z, stencil);
+                int ret = Delegates.ClearDelegateFunction(DevicePointer, count, ptrRects, clearTarget, clearColor, z, stencil);
 
                 return (D3DRESULT) ret;
             }
         }
 
-        public D3DRESULT Clear(D3DCLEAR clearTarget, D3DCOLOR clearColor, float z = 0, int stencil = 0) {
-            IDirect3DDevice8DelegateHolder delegateHolder = IDirect3DDevice8DelegateHolder.DelegateCaches[Identifer];
+        public D3DRESULT Clear(D3DCLEAR clearTarget, D3DCOLOR clearColor, float z = 0, int stencil = 0) => (D3DRESULT) Delegates.ClearDelegateFunction(DevicePointer, 0, null, clearTarget, clearColor, z, stencil);
 
-            int ret = delegateHolder.ClearDelegateFunction(delegateHolder.DevicePointer, 0, null, clearTarget, clearColor, z, stencil);
+        public D3DRESULT Present(RECT sourceRect, RECT destRect, IntPtr windowOverride) => (D3DRESULT) Delegates.PresentDelegateFunction(DevicePointer, &sourceRect, &destRect, windowOverride, null);
+
+        public D3DRESULT Present(IntPtr windowOverride) => (D3DRESULT) Delegates.PresentDelegateFunction(DevicePointer, null, null, windowOverride, null);
+
+        public D3DRESULT Present() => (D3DRESULT) Delegates.PresentDelegateFunction(DevicePointer, null, null, IntPtr.Zero, null);
+
+        public D3DRESULT BeginScene() => (D3DRESULT) Delegates.BeginSceneDelegateFunction(DevicePointer);
+
+        public D3DRESULT EndScene() => (D3DRESULT) Delegates.EndSceneDelegateFunction(DevicePointer);
+
+        public D3DRESULT ApplyStateBlock(int token) => (D3DRESULT)Delegates.ApplyStateBlockDelegateFunction(DevicePointer, token);
+
+        public D3DRESULT BeginStateBlock() => (D3DRESULT) Delegates.BeginStateBlockDelegateFunction(DevicePointer);
+
+        public D3DRESULT EndStateBlock(out int token) {
+            int ptrToken;
+
+            int ret = Delegates.EndStateBlockDelegateFunction(DevicePointer, &ptrToken);
+
+            token = ptrToken;
+
+            return (D3DRESULT) ret;
+        }
+
+        public D3DRESULT CaptureStateBlock(int token) => (D3DRESULT)Delegates.CaptureStateBlockDelegateFunction(DevicePointer, token);
+
+        public D3DRESULT CreateStateBlock(D3DSTATEBLOCKTYPE type, out int token) {
+            int ptrToken;
+
+            int ret = Delegates.CreateStateBlockDelegateFunction(DevicePointer, type, &ptrToken);
+
+            token = ptrToken;
 
             return (D3DRESULT) ret;
         }
 
-        public D3DRESULT Present(RECT sourceRect, RECT destRect, IntPtr windowOverride) {
-            IDirect3DDevice8DelegateHolder delegateHolder = IDirect3DDevice8DelegateHolder.DelegateCaches[Identifer];
+        public uint GetAvailableTextureMem() => Delegates.GetAvailableTextureMemDelegateFunction(DevicePointer);
 
-            int ret = delegateHolder.PresentDelegateFunction(delegateHolder.DevicePointer, &sourceRect, &destRect, windowOverride, null);
+        public void GetAvailableTextureMem(out uint textureMemory) {
+            textureMemory = this.GetAvailableTextureMem();
+        }
+
+        public D3DRESULT GetDeviceCaps(out D3DCAPS8 deviceCaps) {
+            D3DCAPS8 caps = new D3DCAPS8();
+
+            int ret = Delegates.GetDeviceCapsDelegateFunction(DevicePointer, &caps);
+
+            deviceCaps = caps;
 
             return (D3DRESULT) ret;
         }
 
-        public D3DRESULT Present(IntPtr windowOverride) {
-            IDirect3DDevice8DelegateHolder delegateHolder = IDirect3DDevice8DelegateHolder.DelegateCaches[Identifer];
+        public D3DRESULT GetDisplayMode(out D3DDISPLAYMODE displayMode) {
+            D3DDISPLAYMODE outDisplayMode;
 
-            int ret = delegateHolder.PresentDelegateFunction(delegateHolder.DevicePointer, null, null, windowOverride, null);
+            int ret = Delegates.GetDisplayModeDelegateFunction(DevicePointer, &outDisplayMode);
+
+            displayMode = outDisplayMode;
+
+            return (D3DRESULT) ret;
+        }
+
+        public void GetGammaRamp(out D3DGAMMARAMP gammaRamp) {
+            D3DGAMMARAMP outGammaRamp;
+
+            Delegates.GetGammaRampDelegateFunction(DevicePointer, &outGammaRamp);
+
+            gammaRamp = outGammaRamp;
+        }
+
+        public D3DRESULT GetLight(int index, out D3DLIGHT8 light) {
+            D3DLIGHT8 ptrLight;
+
+            int ret = Delegates.GetLightDelegateFunction(DevicePointer, index, &ptrLight);
+
+            light = ptrLight;
 
             return (D3DRESULT) ret;
         }
 
-        public D3DRESULT Present() {
-            IDirect3DDevice8DelegateHolder delegateHolder = IDirect3DDevice8DelegateHolder.DelegateCaches[Identifer];
+        public D3DRESULT GetLightEnable(int index, out bool enabled) {
+            int ptrEnabled;
 
-            int ret = delegateHolder.PresentDelegateFunction(delegateHolder.DevicePointer, null, null, IntPtr.Zero, null);
+            int ret = Delegates.GetLightEnableDelegateFunction(DevicePointer, index, &ptrEnabled);
+
+            enabled = ptrEnabled == 1;
 
             return (D3DRESULT) ret;
         }
+
+        public D3DRESULT GetMaterial(out D3DMATERIAL8 material) {
+            D3DMATERIAL8 ptrMaterial;
+
+            int ret = Delegates.GetMaterialDelegateFunction(DevicePointer, &ptrMaterial);
+
+            material = ptrMaterial;
+
+            return (D3DRESULT) ret;
+        }
+
+        public D3DRESULT GetPaletteEntries(uint paletteNumber, out D3DPALETTEENTRY paletteEntry) {
+            D3DPALETTEENTRY ptrEntry;
+
+            int ret = Delegates.GetPaletteEntriesDelegateFunction(DevicePointer, paletteNumber, &ptrEntry);
+
+            paletteEntry = ptrEntry;
+
+            return (D3DRESULT) ret;
+        }
+
+        public D3DRESULT CreateVertexBuffer(uint size, D3DBUFFERUSAGE usage, D3DFVF bufferFormat, D3DPOOL pool, out IDirect3DVertexBuffer8* buffer) {
+            IDirect3DVertexBuffer8* ptrBuffer;
+
+            int ret = Delegates.CreateVertexBufferDelegateFunction(DevicePointer, size, (int)usage, (int)bufferFormat, pool, &ptrBuffer);
+
+            new IDirect3DVertexBuffer8_DelegateHolder(ptrBuffer->Vtbl, ptrBuffer);
+
+            buffer = ptrBuffer;
+
+            return (D3DRESULT) ret;
+        }
+
+        public D3DRESULT SetStreamSource(uint streamNumber, IDirect3DVertexBuffer8* data, uint stride) => (D3DRESULT)Delegates.SetStreamSourceDelegateFunction(DevicePointer, streamNumber, data, stride);
+
+        public D3DRESULT DrawPrimitive(D3DPRIMITIVETYPE primitiveType, uint startVertex, uint primitiveCount) => (D3DRESULT)Delegates.DrawPrimitiveDelegateFunction(DevicePointer, primitiveType, startVertex, primitiveCount);
+
+        public D3DRESULT SetVertexShader(int handle) => (D3DRESULT)Delegates.SetVertexShaderDelegateFunction(DevicePointer, handle);
+        public D3DRESULT SetVertexShader(D3DFVF bufferFormat) => (D3DRESULT)Delegates.SetVertexShaderDelegateFunction(DevicePointer, (int) bufferFormat);
     }
 }
