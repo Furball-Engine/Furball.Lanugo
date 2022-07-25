@@ -10,7 +10,8 @@ namespace Furball.Lanugo.TestApplication {
 
         private IDirect3DDevice8       _device;
         private IDirect3DVertexBuffer8 _vertexBuffer;
-        private uint                    _vertexBufferStride;
+        private IDirect3DVertexBuffer8 _vertexBuffer2;
+        private uint                   _vertexBufferStride;
 
         struct TestVertex {
             public Vector4  Position;
@@ -81,6 +82,7 @@ namespace Furball.Lanugo.TestApplication {
             int fvfSize = sizeof(D3DCOLOR) + sizeof(Vector4);
 
             this._device.CreateVertexBuffer((uint) fvfSize * 3, D3DBUFFERUSAGE.D3DUSAGE_DEFAULT, D3DFVF.D3DFVF_DIFFUSE | D3DFVF.D3DFVF_XYZRHW, D3DPOOL.D3DPOOL_MANAGED, out this._vertexBuffer);
+            this._device.CreateVertexBuffer((uint) fvfSize * 3, D3DBUFFERUSAGE.D3DUSAGE_DEFAULT, D3DFVF.D3DFVF_DIFFUSE | D3DFVF.D3DFVF_XYZRHW, D3DPOOL.D3DPOOL_MANAGED, out this._vertexBuffer2);
 
             TestVertex[] verticies = new TestVertex[] {
                 new TestVertex {
@@ -97,6 +99,21 @@ namespace Furball.Lanugo.TestApplication {
                 },
             };
 
+            TestVertex[] verticies2 = new TestVertex[] {
+                new TestVertex {
+                    Position = new Vector4(0, 0, 0, 1),
+                    Color    = D3DCOLOR.FromArgb(255, 255, 0, 0),
+                },
+                new TestVertex {
+                    Position = new Vector4(1280, 0, 0, 1),
+                    Color    = D3DCOLOR.FromArgb(255, 0, 255, 0),
+                },
+                new TestVertex {
+                    Position = new Vector4(1280, 720, 0, 1),
+                    Color    = D3DCOLOR.FromArgb(255, 255, 0, 255),
+                },
+            };
+
             this._vertexBufferStride = (uint)fvfSize;
 
             this._vertexBuffer.Lock(0, (uint)(sizeof(TestVertex) * 3), 0, out byte* byteBuffer);
@@ -106,6 +123,14 @@ namespace Furball.Lanugo.TestApplication {
             }
 
             this._vertexBuffer.Unlock();
+
+            this._vertexBuffer2.Lock(0, (uint)(sizeof(TestVertex) * 3), 0, out byte* byteBuffer2);
+
+            fixed (void* vertexPtr = verticies2) {
+                Buffer.MemoryCopy(vertexPtr, byteBuffer2, fvfSize * 3, fvfSize * 3);
+            }
+
+            this._vertexBuffer2.Unlock();
         }
 
         private double _frameDelta;
@@ -126,8 +151,12 @@ namespace Furball.Lanugo.TestApplication {
 
             this._device.BeginScene();
 
-            this._device.SetStreamSource(0, this._vertexBuffer, this._vertexBufferStride);
             this._device.SetVertexShader(D3DFVF.D3DFVF_DIFFUSE | D3DFVF.D3DFVF_XYZRHW);
+
+            this._device.SetStreamSource(0, this._vertexBuffer, this._vertexBufferStride);
+            this._device.DrawPrimitive(D3DPRIMITIVETYPE.D3DPT_TRIANGLELIST, 0, 3);
+
+            this._device.SetStreamSource(0, this._vertexBuffer2, this._vertexBufferStride);
             this._device.DrawPrimitive(D3DPRIMITIVETYPE.D3DPT_TRIANGLELIST, 0, 3);
 
             this._device.EndScene();
