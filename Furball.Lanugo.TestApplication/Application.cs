@@ -8,8 +8,8 @@ namespace Furball.Lanugo.TestApplication {
         private D3DCAPS8               _deviceCapabilities;
         private D3DADAPTER_IDENTIFIER8 _deviceIdentifier;
 
-        private IDirect3DDevice8*       _device;
-        private IDirect3DVertexBuffer8* _vertexBuffer;
+        private IDirect3DDevice8       _device;
+        private IDirect3DVertexBuffer8 _vertexBuffer;
         private uint                    _vertexBufferStride;
 
         struct TestVertex {
@@ -70,7 +70,7 @@ namespace Furball.Lanugo.TestApplication {
 
             D3DRESULT result = IDirect3D8.CreateDevice(0, D3DDEVTYPE.Hardware, this._window.Native.Win32.Value.Hwnd, D3DCREATEFLAGS.D3DCREATE_HARDWARE_VERTEXPROCESSING , &presentParameters, out this._device);
 
-            this._device->GetAvailableTextureMem(out uint textureMemory);
+            this._device.GetAvailableTextureMem(out uint textureMemory);
 
             Console.WriteLine($"[Direct3D8] Available Texture Memory: {textureMemory}");
 
@@ -80,7 +80,7 @@ namespace Furball.Lanugo.TestApplication {
 
             int fvfSize = sizeof(D3DCOLOR) + sizeof(Vector4);
 
-            this._device->CreateVertexBuffer((uint) fvfSize * 3, D3DBUFFERUSAGE.D3DUSAGE_DEFAULT, D3DFVF.D3DFVF_DIFFUSE | D3DFVF.D3DFVF_XYZRHW, D3DPOOL.D3DPOOL_MANAGED, out this._vertexBuffer);
+            this._device.CreateVertexBuffer((uint) fvfSize * 3, D3DBUFFERUSAGE.D3DUSAGE_DEFAULT, D3DFVF.D3DFVF_DIFFUSE | D3DFVF.D3DFVF_XYZRHW, D3DPOOL.D3DPOOL_MANAGED, out this._vertexBuffer);
 
             TestVertex[] verticies = new TestVertex[] {
                 new TestVertex {
@@ -89,23 +89,23 @@ namespace Furball.Lanugo.TestApplication {
                 },
                 new TestVertex {
                     Position = new Vector4(1280, 0, 0, 1),
-                    Color    = D3DCOLOR.FromArgb(255, 255, 0, 0),
+                    Color    = D3DCOLOR.FromArgb(255, 0, 255, 0),
                 },
                 new TestVertex {
                     Position = new Vector4(1280 / 2, 720, 0, 1),
-                    Color    = D3DCOLOR.FromArgb(255, 255, 0, 0),
+                    Color    = D3DCOLOR.FromArgb(255, 0, 0, 255),
                 },
             };
 
             this._vertexBufferStride = (uint)fvfSize;
 
-            this._vertexBuffer->Lock(0, (uint)(sizeof(TestVertex) * 3), 0, out byte* byteBuffer);
+            this._vertexBuffer.Lock(0, (uint)(sizeof(TestVertex) * 3), 0, out byte* byteBuffer);
 
             fixed (void* vertexPtr = verticies) {
                 Buffer.MemoryCopy(vertexPtr, byteBuffer, fvfSize * 3, fvfSize * 3);
             }
 
-            this._vertexBuffer->Unlock();
+            this._vertexBuffer.Unlock();
         }
 
         private double _frameDelta;
@@ -122,17 +122,17 @@ namespace Furball.Lanugo.TestApplication {
                 this._frames     = 0;
             }
 
-            this._device->Clear(D3DCLEAR.D3DCLEAR_TARGET, D3DCOLOR.FromArgb(255, 0, 0, 0));
+            this._device.Clear(D3DCLEAR.D3DCLEAR_TARGET, D3DCOLOR.FromArgb(255, 0, 0, 0));
 
-            this._device->BeginScene();
+            this._device.BeginScene();
 
-            this._device->SetStreamSource(0, this._vertexBuffer, this._vertexBufferStride);
-            this._device->SetVertexShader(D3DFVF.D3DFVF_DIFFUSE | D3DFVF.D3DFVF_XYZRHW);
-            this._device->DrawPrimitive(D3DPRIMITIVETYPE.D3DPT_TRIANGLELIST, 0, 3);
+            this._device.SetStreamSource(0, this._vertexBuffer, this._vertexBufferStride);
+            this._device.SetVertexShader(D3DFVF.D3DFVF_DIFFUSE | D3DFVF.D3DFVF_XYZRHW);
+            this._device.DrawPrimitive(D3DPRIMITIVETYPE.D3DPT_TRIANGLELIST, 0, 3);
 
-            this._device->EndScene();
+            this._device.EndScene();
 
-            this._device->Present();
+            this._device.Present();
         }
     }
 }

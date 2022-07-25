@@ -51,7 +51,7 @@ namespace Furball.Lanugo {
         delegate int CheckDepthStencilMatchDelegate(IDirect3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, D3DFORMAT adapterFormat, D3DFORMAT renderTargetFormat, D3DFORMAT depthStencilFormat);
         delegate int GetDeviceCapsDelegate(IDirect3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, D3DCAPS8* pCaps);
         delegate IntPtr GetAdapterMonitorDelegate(IDirect3D8* d3d8, uint adapter);
-        delegate int CreateDeviceDelegate(IDirect3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, IntPtr hFocusWindow, D3DCREATEFLAGS behaviourFlags, void* pPresentationParameters, IDirect3DDevice8** ppReturnedDeviceInterfacce);
+        delegate int CreateDeviceDelegate(IDirect3D8* d3d8, uint adapter, D3DDEVTYPE deviceType, IntPtr hFocusWindow, D3DCREATEFLAGS behaviourFlags, void* pPresentationParameters, NativeIDirect3DDevice8** ppReturnedDeviceInterfacce);
 
         #endregion
 
@@ -271,16 +271,12 @@ namespace Furball.Lanugo {
         /// <param name="presentationParameters"></param>
         /// <param name="device"></param>
         /// <returns></returns>
-        public static D3DRESULT CreateDevice(uint adapter, D3DDEVTYPE deviceType, IntPtr focusWindow, D3DCREATEFLAGS behaviorFlags, D3DPRESENT_PARAMETERS* presentationParameters, out IDirect3DDevice8* device) {
-            IntPtr returnedDeviceInterfaceOut = IntPtr.Zero;
-
-            IDirect3DDevice8* ptrDevice;
+        public static D3DRESULT CreateDevice(uint adapter, D3DDEVTYPE deviceType, IntPtr focusWindow, D3DCREATEFLAGS behaviorFlags, D3DPRESENT_PARAMETERS* presentationParameters, out IDirect3DDevice8 device) {
+            NativeIDirect3DDevice8* ptrDevice;
 
             int ret = _createDeviceDelegate(_d3d8, adapter, deviceType, focusWindow, behaviorFlags, presentationParameters, &ptrDevice);
 
-            device = ptrDevice;
-
-            new IDirect3DDevice8DelegateHolder(device->Vtbl) { DevicePointer = ptrDevice };
+            device = new IDirect3DDevice8(ptrDevice);
 
             return (D3DRESULT) ret;
         }
