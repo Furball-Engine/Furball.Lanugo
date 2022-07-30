@@ -1,6 +1,7 @@
 using System;
 using System.Numerics;
 using Furball.Lanugo.Helpers;
+using Furball.Lanugo.LanugoEx;
 using Silk.NET.Windowing;
 
 namespace Furball.Lanugo.TestApplication {
@@ -116,21 +117,8 @@ namespace Furball.Lanugo.TestApplication {
 
             this._vertexBufferStride = (uint)fvfSize;
 
-            this._vertexBuffer.Lock(0, (uint)(sizeof(TestVertex) * 3), 0, out byte* byteBuffer);
-
-            fixed (void* vertexPtr = verticies) {
-                Buffer.MemoryCopy(vertexPtr, byteBuffer, fvfSize * 3, fvfSize * 3);
-            }
-
-            this._vertexBuffer.Unlock();
-
-            this._vertexBuffer2.Lock(0, (uint)(sizeof(TestVertex) * 3), 0, out byte* byteBuffer2);
-
-            fixed (void* vertexPtr = verticies2) {
-                Buffer.MemoryCopy(vertexPtr, byteBuffer2, fvfSize * 3, fvfSize * 3);
-            }
-
-            this._vertexBuffer2.Unlock();
+            this._vertexBuffer.UpdateEx(verticies);
+            this._vertexBuffer2.UpdateEx(verticies2);
         }
 
         private double _frameDelta;

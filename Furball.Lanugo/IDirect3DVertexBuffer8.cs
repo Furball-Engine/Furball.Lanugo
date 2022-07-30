@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 
 namespace Furball.Lanugo {
     public unsafe class IDirect3DVertexBuffer8 {
-        internal NativeIDirect3DVertexBuffer8* BufferPointer;
+        internal VirtualTableStruct* BufferPointer;
 
-        internal delegate int  QueryInterfaceDelegate(NativeIDirect3DDevice8* device, Guid riid, void** ppvObj);
-        internal delegate uint AddRefDelegate(NativeIDirect3DDevice8* device);
-        internal delegate uint ReleaseDelegate(NativeIDirect3DDevice8* device);
+        internal delegate int  QueryInterfaceDelegate(VirtualTableStruct* device, Guid riid, void** ppvObj);
+        internal delegate uint AddRefDelegate(VirtualTableStruct* device);
+        internal delegate uint ReleaseDelegate(VirtualTableStruct* device);
         internal delegate int GetDeviceDelegate(void** retDevice);
         internal delegate int SetPrivateDataDelegate(Guid guid, void* data, int sizeOfData, int flags);
         internal delegate int GetPrivateDataDelegate(Guid guid, void* data, int sizeOfData);
@@ -17,9 +17,9 @@ namespace Furball.Lanugo {
         internal delegate int GetPriorityDelegate();
         internal delegate void PreLoadDelegate();
         internal delegate D3DRESOURCETYPE GetTypeDelegate();
-        internal delegate int LockDelegate(NativeIDirect3DVertexBuffer8* buffer, uint offsetToLock, uint sizeToLock, byte** bufferPointer, D3DLOCK lockFlags);
-        internal delegate int UnlockDelegate(NativeIDirect3DVertexBuffer8* buffer);
-        internal delegate int GetDescDelegate(NativeIDirect3DVertexBuffer8* buffer, void* outVertexBufferDesc);
+        internal delegate int LockDelegate(VirtualTableStruct* buffer, uint offsetToLock, uint sizeToLock, byte** bufferPointer, D3DLOCK lockFlags);
+        internal delegate int UnlockDelegate(VirtualTableStruct* buffer);
+        internal delegate int GetDescDelegate(VirtualTableStruct* buffer, void* outVertexBufferDesc);
 
 
         internal static QueryInterfaceDelegate  QueryInterfaceDelegateFunction;
@@ -37,7 +37,7 @@ namespace Furball.Lanugo {
         internal static UnlockDelegate          UnlockDelegateFunction;
         internal static GetDescDelegate         GetDescDelegateFunction;
 
-        public IDirect3DVertexBuffer8(NativeIDirect3DVertexBuffer8* bufferPointer) {
+        public IDirect3DVertexBuffer8(VirtualTableStruct* bufferPointer) {
             BufferPointer = bufferPointer;
 
             if (GetDescDelegateFunction == null) {
@@ -79,9 +79,5 @@ namespace Furball.Lanugo {
         }
 
         public D3DRESULT Unlock() => (D3DRESULT)UnlockDelegateFunction(BufferPointer);
-    }
-
-    public unsafe struct NativeIDirect3DVertexBuffer8 {
-        public void** Vtbl;
     }
 }
