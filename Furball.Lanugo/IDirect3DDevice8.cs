@@ -10,103 +10,199 @@ namespace Furball.Lanugo {
 
         #region Delegates
 
-        internal delegate int  QueryInterfaceDelegate(VirtualTableStruct* device, Guid riid, void** ppvObj);
+        internal delegate int QueryInterfaceDelegate(VirtualTableStruct* device, Guid riid, void** ppvObj);
+
         internal delegate uint AddRefDelegate(VirtualTableStruct* device);
+
         internal delegate uint ReleaseDelegate(VirtualTableStruct* device);
-        internal delegate int  TestCooperativeLevelDelegate(VirtualTableStruct* device);
+
+        internal delegate int TestCooperativeLevelDelegate(VirtualTableStruct* device);
+
         internal delegate uint GetAvailableTextureMemDelegate(VirtualTableStruct* device);
-        internal delegate int  ResourceManagerDiscardBytesDelegate(VirtualTableStruct* device, int bytes);
-        internal delegate int  GetDirect3DDelegate(VirtualTableStruct* device, IDirect3D8** ppD3D8);
-        internal delegate int  GetDeviceCapsDelegate(VirtualTableStruct* device, D3DCAPS8* pCaps);
-        internal delegate int  GetDisplayModeDelegate(VirtualTableStruct* device, D3DDISPLAYMODE* pMode);
-        internal delegate int  GetCreationParametersDelegate(VirtualTableStruct* device, D3DDEVICE_CREATION_PARAMETERS* pParameters);
-        internal delegate int  SetCursorPropertiesDelegate(VirtualTableStruct* device, uint xHotSpot, uint yHotSpot, IDirect3DSurface8* pCursorBitmap);
+
+        internal delegate int ResourceManagerDiscardBytesDelegate(VirtualTableStruct* device, int bytes);
+
+        internal delegate int GetDirect3DDelegate(VirtualTableStruct* device, IDirect3D8** ppD3D8);
+
+        internal delegate int GetDeviceCapsDelegate(VirtualTableStruct* device, D3DCAPS8* pCaps);
+
+        internal delegate int GetDisplayModeDelegate(VirtualTableStruct* device, D3DDISPLAYMODE* pMode);
+
+        internal delegate int GetCreationParametersDelegate(VirtualTableStruct* device, D3DDEVICE_CREATION_PARAMETERS* pParameters);
+
+        internal delegate int SetCursorPropertiesDelegate(VirtualTableStruct* device, uint xHotSpot, uint yHotSpot, VirtualTableStruct* pCursorBitmap);
+
         internal delegate void SetCursorPositionDelegate(VirtualTableStruct* device, uint xScreenSpace, uint yScreenSpace, int flags);
+
         internal delegate Bool32 ShowCursorDelegate(VirtualTableStruct* device, int bShow);
-        internal delegate int  CreateAdditionalSwapChainDelegate(VirtualTableStruct* device, void* pPresentationParameters, IDirect3DSwapChain8** pSwapChain);
-        internal delegate int  ResetDelegate(VirtualTableStruct* device, void* pPresentationParameters);
-        internal delegate int  PresentDelegate(VirtualTableStruct* device, RECT* pSourceRect, RECT* pDestRect, IntPtr hDestWindowOverride, void* pDirtyRegion);
-        internal delegate int  GetBackBufferDelegate(VirtualTableStruct* device, uint backBuffer, D3DBACKBUFFER_TYPE type, IDirect3DSurface8** ppBackBuffer);
-        internal delegate int  GetRasterStatusDelegate(VirtualTableStruct* device, D3DRASTER_STATUS* pRasterStatus);
+
+        internal delegate int CreateAdditionalSwapChainDelegate(VirtualTableStruct* device, void* pPresentationParameters, IDirect3DSwapChain8** pSwapChain);
+
+        internal delegate int ResetDelegate(VirtualTableStruct* device, void* pPresentationParameters);
+
+        internal delegate int PresentDelegate(VirtualTableStruct* device, RECT* pSourceRect, RECT* pDestRect, IntPtr hDestWindowOverride, void* pDirtyRegion);
+
+        internal delegate int GetBackBufferDelegate(VirtualTableStruct* device, uint backBuffer, D3DBACKBUFFER_TYPE type, VirtualTableStruct** ppBackBuffer);
+
+        internal delegate int GetRasterStatusDelegate(VirtualTableStruct* device, D3DRASTER_STATUS* pRasterStatus);
+
         internal delegate void SetGammaRampDelegate(VirtualTableStruct* device, int flags, D3DGAMMARAMP* pRamp);
+
         internal delegate void GetGammaRampDelegate(VirtualTableStruct* device, D3DGAMMARAMP* pRamp);
-        internal delegate int  CreateTextureDelegate(VirtualTableStruct* device, uint width, uint height, uint levels, int usage, D3DFORMAT format, D3DPOOL pool, IDirect3DTexture8** ppTexture);
-        internal delegate int  CreateVolumeTextureDelegate(VirtualTableStruct* device, uint width, uint height, uint depth, uint levels, int usage, D3DFORMAT format, D3DPOOL pool, IDirect3DVolumeTexture8** ppVolumeTexture);
-        internal delegate int  CreateCubeTextureDelegate(VirtualTableStruct* device, uint edgeLength, uint levels, int usage, D3DFORMAT format, D3DPOOL pool, IDirect3DCubeTexture8** ppCubeTexture);
-        internal delegate int  CreateVertexBufferDelegate(VirtualTableStruct* device, uint length, int usage, int fvf, D3DPOOL pool, VirtualTableStruct** ppVertexBuffer);
-        internal delegate int  CreateIndexBufferDelegate(VirtualTableStruct* device, uint length, int usage, D3DFORMAT format, D3DPOOL pool, IDirect3DIndexBuffer8** ppIndexBuffer);
-        internal delegate int  CreateRenderTargetDelegate(VirtualTableStruct* device, uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE multiSample, int lockable, IDirect3DSurface8** ppSurface);
-        internal delegate int  CreateDepthStencilSurfaceDelegate(VirtualTableStruct* device, uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE multiSample, IDirect3DSurface8** ppSurface);
-        internal delegate int  CreateImageSurfaceDelegate(VirtualTableStruct* device, uint width, uint height, D3DFORMAT format, IDirect3DSurface8** ppSurface);
-        internal delegate int  CopyRectsDelegate(VirtualTableStruct* device, IDirect3DSurface8* pSourceSurface, RECT* pSourceRectsArray, uint cRects, IDirect3DSurface8* pDestinationSurface, D3DPOINT* pDestPointsArray);
-        internal delegate int  UpdateTextureDelegate(VirtualTableStruct* device, IDirect3DBaseTexture8* pSourceTexture, IDirect3DBaseTexture8* pDestinationTexture);
-        internal delegate int  GetFrontBufferDelegate(VirtualTableStruct* device, IDirect3DSurface8* pDestSurface);
-        internal delegate int  SetRenderTargetDelegate(VirtualTableStruct* device, IDirect3DSurface8* pRenderTarget, IDirect3DSurface8* pNewZStencil);
-        internal delegate int  GetRenderTargetDelegate(VirtualTableStruct* device, IDirect3DSurface8** ppRenderTarget);
-        internal delegate int  GetDepthStencilSurfaceDelegate(VirtualTableStruct* device, IDirect3DSurface8** ppZStencilSurface);
-        internal delegate int  BeginSceneDelegate(VirtualTableStruct* device);
-        internal delegate int  EndSceneDelegate(VirtualTableStruct* device);
-        internal delegate int  ClearDelegate(VirtualTableStruct* device, int count, D3DRECT* pRects, D3DCLEAR flags, D3DCOLOR color, float z, int stencil);
-        internal delegate int  SetTransformDelegate(VirtualTableStruct* device, D3DTRANSFORMSTATETYPE state, Matrix4x4* pMatrix);
-        internal delegate int  GetTransformDelegate(VirtualTableStruct* device, D3DTRANSFORMSTATETYPE state, Matrix4x4* pMatrix);
-        internal delegate int  MultiplyTransformDelegate(VirtualTableStruct* device, D3DTRANSFORMSTATETYPE state, Matrix4x4* pMatrix);
-        internal delegate int  SetViewportDelegate(VirtualTableStruct* device, D3DVIEWPORT8* pViewport);
-        internal delegate int  GetViewportDelegate(VirtualTableStruct* device, D3DVIEWPORT8* pViewport);
-        internal delegate int  SetMaterialDelegate(VirtualTableStruct* device, D3DMATERIAL8* pMaterial);
-        internal delegate int  GetMaterialDelegate(VirtualTableStruct* device, D3DMATERIAL8* pMaterial);
-        internal delegate int  SetLightDelegate(VirtualTableStruct* device, int index, D3DLIGHT8* light);
-        internal delegate int  GetLightDelegate(VirtualTableStruct* device, int index, D3DLIGHT8* light);
-        internal delegate int  LightEnableDelegate(VirtualTableStruct* device, int index, int enable);
-        internal delegate int  GetLightEnableDelegate(VirtualTableStruct* device, int index, int* pEnable);
-        internal delegate int  SetClipPlaneDelegate(VirtualTableStruct* device, int index, float* pPlane);
-        internal delegate int  GetClipPlaneDelegate(VirtualTableStruct* device, int index, float* pPlane);
-        internal delegate int  SetRenderStateDelegate(VirtualTableStruct* device, D3DRENDERSTATETYPE state, int value);
-        internal delegate int  GetRenderStateDelegate(VirtualTableStruct* device, D3DRENDERSTATETYPE state, int* pValue);
-        internal delegate int  BeginStateBlockDelegate(VirtualTableStruct* device);
-        internal delegate int  EndStateBlockDelegate(VirtualTableStruct* device, int* pToken);
-        internal delegate int  ApplyStateBlockDelegate(VirtualTableStruct* device, int token);
-        internal delegate int  CaptureStateBlockDelegate(VirtualTableStruct* device, int token);
-        internal delegate int  DeleteStateBlockDelegate(VirtualTableStruct* device, int token);
-        internal delegate int  CreateStateBlockDelegate(VirtualTableStruct* device, D3DSTATEBLOCKTYPE type, int* pToken);
-        internal delegate int  SetClipStatusDelegate(VirtualTableStruct* device, D3DCLIPSTATUS8* pClipStatus);
-        internal delegate int  GetClipStatusDelegate(VirtualTableStruct* device, D3DCLIPSTATUS8* pClipStatus);
-        internal delegate int  GetTextureDelegate(VirtualTableStruct* device, int stage, IDirect3DBaseTexture8** ppTexture);
-        internal delegate int  SetTextureDelegate(VirtualTableStruct* device, int stage, IDirect3DBaseTexture8* pTexture);
-        internal delegate int  GetTextureStageStateDelegate(VirtualTableStruct* device, int stage, D3DTEXTURESTAGESTATETYPE type, int* pValue);
-        internal delegate int  SetTextureStageStateDelegate(VirtualTableStruct* device, int stage, D3DTEXTURESTAGESTATETYPE type, int value);
-        internal delegate int  ValidateDeviceDelegate(VirtualTableStruct* device, int* pNumPasses);
-        internal delegate int  GetInfoDelegate(VirtualTableStruct* device, int devInfoId, void* pDevInfoStruct, int devInfoStructSize);
-        internal delegate int  SetPaletteEntriesDelegate(VirtualTableStruct* device, uint paletteNumber, D3DPALETTEENTRY* pEntries);
-        internal delegate int  GetPaletteEntriesDelegate(VirtualTableStruct* device, uint paletteNumber, D3DPALETTEENTRY* pEntries);
-        internal delegate int  SetCurrentTexturePaletteDelegate(VirtualTableStruct* device, uint paletteNumber);
-        internal delegate int  GetCurrentTexturePaletteDelegate(VirtualTableStruct* device, uint* paletteNumber);
-        internal delegate int  DrawPrimitiveDelegate(VirtualTableStruct* device, D3DPRIMITIVETYPE primitiveType, uint startVertex, uint primitiveCount);
-        internal delegate int  DrawIndexedPrimitiveDelegate(VirtualTableStruct* device, D3DPRIMITIVETYPE primitiveType, uint minIndex, uint numVertices, uint startIndex, uint primCount);
-        internal delegate int  DrawPrimitiveUserPointerDelegate(VirtualTableStruct* device, D3DPRIMITIVETYPE primitiveType, uint primitiveCount, void* pVertexStreamZeroData, uint vertexStreamZeroStride);
-        internal delegate int  DrawIndexedPrimitiveUserPointerDelegate(VirtualTableStruct* device, D3DPRIMITIVETYPE primitiveType, uint minVertexIndex, uint numVertexIndices, uint primitiveCount, void* pIndexData, D3DFORMAT indexDataFormat, void* pVertexStreamZeroData, uint vertexStreamZeroStride);
-        internal delegate int  ProcessVerticesDelegate(VirtualTableStruct* device, uint srcStartIndex, uint destIndex, uint vertexCount, VirtualTableStruct* pDestBuffer, int flags);
-        internal delegate int  CreateVertexShaderDelegate(VirtualTableStruct* device, int* pDeclaration, int* pFunction, int* pHandle, int usage);
-        internal delegate int  SetVertexShaderDelegate(VirtualTableStruct* device, int handle);
-        internal delegate int  GetVertexShaderDelegate(VirtualTableStruct* device, int* pHandle);
-        internal delegate int  DeleteVertexShaderDelegate(VirtualTableStruct* device, int handle);
-        internal delegate int  SetVertexShaderConstantDelegate(VirtualTableStruct* device, int register, void* pConstantData, int constantCount);
-        internal delegate int  GetVertexShaderConstantDelegate(VirtualTableStruct* device, int register, void* pConstantData, int constantCount);
-        internal delegate int  GetVertexShaderDeclarationDelegate(VirtualTableStruct* device, int handle, void* pData, int* pSizeOfData);
-        internal delegate int  GetVertexShaderFunctionDelegate(VirtualTableStruct* device, int handle, void* pData, int* pSizeOfData);
-        internal delegate int  SetStreamSourceDelegate(VirtualTableStruct* device, uint streamNumber, VirtualTableStruct* pStreamData, uint stride);
-        internal delegate int  GetStreamSourceDelegate(VirtualTableStruct* device, uint streamNumber, VirtualTableStruct** ppStreamData, uint* pStride);
-        internal delegate int  SetIndicesDelegate(VirtualTableStruct* device, IDirect3DIndexBuffer8* pIndexData, uint baseVertexIndex);
-        internal delegate int  GetIndicesDelegate(VirtualTableStruct* device, IDirect3DIndexBuffer8** ppIndexData, uint* pBaseVertexIndex);
-        internal delegate int  CreatePixelShaderDelegate(VirtualTableStruct* device, int* pFunction, int* pHandle);
-        internal delegate int  SetPixelShaderDelegate(VirtualTableStruct* device, int handle);
-        internal delegate int  GetPixelShaderDelegate(VirtualTableStruct* device, int* pHandle);
-        internal delegate int  DeletePixelShaderDelegate(VirtualTableStruct* device, int handle);
-        internal delegate int  SetPixelShaderConstantDelegate(VirtualTableStruct* device, int register, void* pConstantData, int constantCount);
-        internal delegate int  GetPixelShaderConstantDelegate(VirtualTableStruct* device, int register, void* pConstantData, int constantCount);
-        internal delegate int  GetPixelShaderFunctionDelegate(VirtualTableStruct* device, int handle, void* pData, int* pSizeOfData);
-        internal delegate int  DrawRectPatchDelegate(VirtualTableStruct* device, uint handle, float* pNumSegs, D3DRECTPATCH_INFO* pRectPatchInfo);
-        internal delegate int  DrawTriPatchDelegate(VirtualTableStruct* device, uint handle, float* pNumSegs, D3DTRIPATCH_INFO* pTriPatchInfo);
-        internal delegate int  DeletePatchDelegate(VirtualTableStruct* device, uint handle);
+
+        internal delegate int CreateTextureDelegate(VirtualTableStruct* device, uint width, uint height, uint levels, int usage, D3DFORMAT format, D3DPOOL pool, IDirect3DTexture8** ppTexture);
+
+        internal delegate int CreateVolumeTextureDelegate(VirtualTableStruct* device, uint width, uint height, uint depth, uint levels, int usage, D3DFORMAT format, D3DPOOL pool, IDirect3DVolumeTexture8** ppVolumeTexture);
+
+        internal delegate int CreateCubeTextureDelegate(VirtualTableStruct* device, uint edgeLength, uint levels, int usage, D3DFORMAT format, D3DPOOL pool, IDirect3DCubeTexture8** ppCubeTexture);
+
+        internal delegate int CreateVertexBufferDelegate(VirtualTableStruct* device, uint length, int usage, int fvf, D3DPOOL pool, VirtualTableStruct** ppVertexBuffer);
+
+        internal delegate int CreateIndexBufferDelegate(VirtualTableStruct* device, uint length, int usage, D3DFORMAT format, D3DPOOL pool, IDirect3DIndexBuffer8** ppIndexBuffer);
+
+        internal delegate int CreateRenderTargetDelegate(VirtualTableStruct* device, uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE multiSample, int lockable, VirtualTableStruct** ppSurface);
+
+        internal delegate int CreateDepthStencilSurfaceDelegate(VirtualTableStruct* device, uint width, uint height, D3DFORMAT format, D3DMULTISAMPLE_TYPE multiSample, VirtualTableStruct** ppSurface);
+
+        internal delegate int CreateImageSurfaceDelegate(VirtualTableStruct* device, uint width, uint height, D3DFORMAT format, VirtualTableStruct** ppSurface);
+
+        internal delegate int CopyRectsDelegate(VirtualTableStruct* device, VirtualTableStruct* pSourceSurface, RECT* pSourceRectsArray, uint cRects, VirtualTableStruct* pDestinationSurface, D3DPOINT* pDestPointsArray);
+
+        internal delegate int UpdateTextureDelegate(VirtualTableStruct* device, IDirect3DBaseTexture8* pSourceTexture, IDirect3DBaseTexture8* pDestinationTexture);
+
+        internal delegate int GetFrontBufferDelegate(VirtualTableStruct* device, VirtualTableStruct* pDestSurface);
+
+        internal delegate int SetRenderTargetDelegate(VirtualTableStruct* device, VirtualTableStruct* pRenderTarget, VirtualTableStruct* pNewZStencil);
+
+        internal delegate int GetRenderTargetDelegate(VirtualTableStruct* device, VirtualTableStruct** ppRenderTarget);
+
+        internal delegate int GetDepthStencilSurfaceDelegate(VirtualTableStruct* device, VirtualTableStruct** ppZStencilSurface);
+
+        internal delegate int BeginSceneDelegate(VirtualTableStruct* device);
+
+        internal delegate int EndSceneDelegate(VirtualTableStruct* device);
+
+        internal delegate int ClearDelegate(VirtualTableStruct* device, int count, D3DRECT* pRects, D3DCLEAR flags, D3DCOLOR color, float z, int stencil);
+
+        internal delegate int SetTransformDelegate(VirtualTableStruct* device, D3DTRANSFORMSTATETYPE state, Matrix4x4* pMatrix);
+
+        internal delegate int GetTransformDelegate(VirtualTableStruct* device, D3DTRANSFORMSTATETYPE state, Matrix4x4* pMatrix);
+
+        internal delegate int MultiplyTransformDelegate(VirtualTableStruct* device, D3DTRANSFORMSTATETYPE state, Matrix4x4* pMatrix);
+
+        internal delegate int SetViewportDelegate(VirtualTableStruct* device, D3DVIEWPORT8* pViewport);
+
+        internal delegate int GetViewportDelegate(VirtualTableStruct* device, D3DVIEWPORT8* pViewport);
+
+        internal delegate int SetMaterialDelegate(VirtualTableStruct* device, D3DMATERIAL8* pMaterial);
+
+        internal delegate int GetMaterialDelegate(VirtualTableStruct* device, D3DMATERIAL8* pMaterial);
+
+        internal delegate int SetLightDelegate(VirtualTableStruct* device, int index, D3DLIGHT8* light);
+
+        internal delegate int GetLightDelegate(VirtualTableStruct* device, int index, D3DLIGHT8* light);
+
+        internal delegate int LightEnableDelegate(VirtualTableStruct* device, int index, int enable);
+
+        internal delegate int GetLightEnableDelegate(VirtualTableStruct* device, int index, int* pEnable);
+
+        internal delegate int SetClipPlaneDelegate(VirtualTableStruct* device, int index, float* pPlane);
+
+        internal delegate int GetClipPlaneDelegate(VirtualTableStruct* device, int index, float* pPlane);
+
+        internal delegate int SetRenderStateDelegate(VirtualTableStruct* device, D3DRENDERSTATETYPE state, int value);
+
+        internal delegate int GetRenderStateDelegate(VirtualTableStruct* device, D3DRENDERSTATETYPE state, int* pValue);
+
+        internal delegate int BeginStateBlockDelegate(VirtualTableStruct* device);
+
+        internal delegate int EndStateBlockDelegate(VirtualTableStruct* device, int* pToken);
+
+        internal delegate int ApplyStateBlockDelegate(VirtualTableStruct* device, int token);
+
+        internal delegate int CaptureStateBlockDelegate(VirtualTableStruct* device, int token);
+
+        internal delegate int DeleteStateBlockDelegate(VirtualTableStruct* device, int token);
+
+        internal delegate int CreateStateBlockDelegate(VirtualTableStruct* device, D3DSTATEBLOCKTYPE type, int* pToken);
+
+        internal delegate int SetClipStatusDelegate(VirtualTableStruct* device, D3DCLIPSTATUS8* pClipStatus);
+
+        internal delegate int GetClipStatusDelegate(VirtualTableStruct* device, D3DCLIPSTATUS8* pClipStatus);
+
+        internal delegate int GetTextureDelegate(VirtualTableStruct* device, int stage, IDirect3DBaseTexture8** ppTexture);
+
+        internal delegate int SetTextureDelegate(VirtualTableStruct* device, int stage, IDirect3DBaseTexture8* pTexture);
+
+        internal delegate int GetTextureStageStateDelegate(VirtualTableStruct* device, int stage, D3DTEXTURESTAGESTATETYPE type, int* pValue);
+
+        internal delegate int SetTextureStageStateDelegate(VirtualTableStruct* device, int stage, D3DTEXTURESTAGESTATETYPE type, int value);
+
+        internal delegate int ValidateDeviceDelegate(VirtualTableStruct* device, int* pNumPasses);
+
+        internal delegate int GetInfoDelegate(VirtualTableStruct* device, int devInfoId, void* pDevInfoStruct, int devInfoStructSize);
+
+        internal delegate int SetPaletteEntriesDelegate(VirtualTableStruct* device, uint paletteNumber, D3DPALETTEENTRY* pEntries);
+
+        internal delegate int GetPaletteEntriesDelegate(VirtualTableStruct* device, uint paletteNumber, D3DPALETTEENTRY* pEntries);
+
+        internal delegate int SetCurrentTexturePaletteDelegate(VirtualTableStruct* device, uint paletteNumber);
+
+        internal delegate int GetCurrentTexturePaletteDelegate(VirtualTableStruct* device, uint* paletteNumber);
+
+        internal delegate int DrawPrimitiveDelegate(VirtualTableStruct* device, D3DPRIMITIVETYPE primitiveType, uint startVertex, uint primitiveCount);
+
+        internal delegate int DrawIndexedPrimitiveDelegate(VirtualTableStruct* device, D3DPRIMITIVETYPE primitiveType, uint minIndex, uint numVertices, uint startIndex, uint primCount);
+
+        internal delegate int DrawPrimitiveUserPointerDelegate(VirtualTableStruct* device, D3DPRIMITIVETYPE primitiveType, uint primitiveCount, void* pVertexStreamZeroData, uint vertexStreamZeroStride);
+
+        internal delegate int DrawIndexedPrimitiveUserPointerDelegate(VirtualTableStruct* device, D3DPRIMITIVETYPE primitiveType, uint minVertexIndex, uint numVertexIndices, uint primitiveCount, void* pIndexData, D3DFORMAT indexDataFormat, void* pVertexStreamZeroData, uint vertexStreamZeroStride);
+
+        internal delegate int ProcessVerticesDelegate(VirtualTableStruct* device, uint srcStartIndex, uint destIndex, uint vertexCount, VirtualTableStruct* pDestBuffer, int flags);
+
+        internal delegate int CreateVertexShaderDelegate(VirtualTableStruct* device, int* pDeclaration, int* pFunction, int* pHandle, int usage);
+
+        internal delegate int SetVertexShaderDelegate(VirtualTableStruct* device, int handle);
+
+        internal delegate int GetVertexShaderDelegate(VirtualTableStruct* device, int* pHandle);
+
+        internal delegate int DeleteVertexShaderDelegate(VirtualTableStruct* device, int handle);
+
+        internal delegate int SetVertexShaderConstantDelegate(VirtualTableStruct* device, int register, void* pConstantData, int constantCount);
+
+        internal delegate int GetVertexShaderConstantDelegate(VirtualTableStruct* device, int register, void* pConstantData, int constantCount);
+
+        internal delegate int GetVertexShaderDeclarationDelegate(VirtualTableStruct* device, int handle, void* pData, int* pSizeOfData);
+
+        internal delegate int GetVertexShaderFunctionDelegate(VirtualTableStruct* device, int handle, void* pData, int* pSizeOfData);
+
+        internal delegate int SetStreamSourceDelegate(VirtualTableStruct* device, uint streamNumber, VirtualTableStruct* pStreamData, uint stride);
+
+        internal delegate int GetStreamSourceDelegate(VirtualTableStruct* device, uint streamNumber, VirtualTableStruct** ppStreamData, uint* pStride);
+
+        internal delegate int SetIndicesDelegate(VirtualTableStruct* device, IDirect3DIndexBuffer8* pIndexData, uint baseVertexIndex);
+
+        internal delegate int GetIndicesDelegate(VirtualTableStruct* device, IDirect3DIndexBuffer8** ppIndexData, uint* pBaseVertexIndex);
+
+        internal delegate int CreatePixelShaderDelegate(VirtualTableStruct* device, int* pFunction, int* pHandle);
+
+        internal delegate int SetPixelShaderDelegate(VirtualTableStruct* device, int handle);
+
+        internal delegate int GetPixelShaderDelegate(VirtualTableStruct* device, int* pHandle);
+
+        internal delegate int DeletePixelShaderDelegate(VirtualTableStruct* device, int handle);
+
+        internal delegate int SetPixelShaderConstantDelegate(VirtualTableStruct* device, int register, void* pConstantData, int constantCount);
+
+        internal delegate int GetPixelShaderConstantDelegate(VirtualTableStruct* device, int register, void* pConstantData, int constantCount);
+
+        internal delegate int GetPixelShaderFunctionDelegate(VirtualTableStruct* device, int handle, void* pData, int* pSizeOfData);
+
+        internal delegate int DrawRectPatchDelegate(VirtualTableStruct* device, uint handle, float* pNumSegs, D3DRECTPATCH_INFO* pRectPatchInfo);
+
+        internal delegate int DrawTriPatchDelegate(VirtualTableStruct* device, uint handle, float* pNumSegs, D3DTRIPATCH_INFO* pTriPatchInfo);
+
+        internal delegate int DeletePatchDelegate(VirtualTableStruct* device, uint handle);
 
         internal static QueryInterfaceDelegate                  QueryInterfaceDelegateFunction;
         internal static AddRefDelegate                          AddRefDelegateFunction;
@@ -314,6 +410,7 @@ namespace Furball.Lanugo {
             }
 
             #endregion
+
         }
 
         public D3DRESULT Clear(D3DRECT[] rects, D3DCLEAR clearTarget, D3DCOLOR clearColor, float z, int stencil) {
@@ -322,25 +419,25 @@ namespace Furball.Lanugo {
             fixed (D3DRECT* ptrRects = rects) {
                 int ret = ClearDelegateFunction(this.StructPointer, count, ptrRects, clearTarget, clearColor, z, stencil);
 
-                return (D3DRESULT) ret;
+                return (D3DRESULT)ret;
             }
         }
 
-        public D3DRESULT Clear(D3DCLEAR clearTarget, D3DCOLOR clearColor, float z = 0, int stencil = 0) => (D3DRESULT) ClearDelegateFunction(this.StructPointer, 0, null, clearTarget, clearColor, z, stencil);
+        public D3DRESULT Clear(D3DCLEAR clearTarget, D3DCOLOR clearColor, float z = 0, int stencil = 0) => (D3DRESULT)ClearDelegateFunction(this.StructPointer, 0, null, clearTarget, clearColor, z, stencil);
 
-        public D3DRESULT Present(RECT sourceRect, RECT destRect, IntPtr windowOverride) => (D3DRESULT) PresentDelegateFunction(this.StructPointer, &sourceRect, &destRect, windowOverride, null);
+        public D3DRESULT Present(RECT sourceRect, RECT destRect, IntPtr windowOverride) => (D3DRESULT)PresentDelegateFunction(this.StructPointer, &sourceRect, &destRect, windowOverride, null);
 
-        public D3DRESULT Present(IntPtr windowOverride) => (D3DRESULT) PresentDelegateFunction(this.StructPointer, null, null, windowOverride, null);
+        public D3DRESULT Present(IntPtr windowOverride) => (D3DRESULT)PresentDelegateFunction(this.StructPointer, null, null, windowOverride, null);
 
-        public D3DRESULT Present() => (D3DRESULT) PresentDelegateFunction(this.StructPointer, null, null, IntPtr.Zero, null);
+        public D3DRESULT Present() => (D3DRESULT)PresentDelegateFunction(this.StructPointer, null, null, IntPtr.Zero, null);
 
-        public D3DRESULT BeginScene() => (D3DRESULT) BeginSceneDelegateFunction(this.StructPointer);
+        public D3DRESULT BeginScene() => (D3DRESULT)BeginSceneDelegateFunction(this.StructPointer);
 
-        public D3DRESULT EndScene() => (D3DRESULT) EndSceneDelegateFunction(this.StructPointer);
+        public D3DRESULT EndScene() => (D3DRESULT)EndSceneDelegateFunction(this.StructPointer);
 
         public D3DRESULT ApplyStateBlock(int token) => (D3DRESULT)ApplyStateBlockDelegateFunction(this.StructPointer, token);
 
-        public D3DRESULT BeginStateBlock() => (D3DRESULT) BeginStateBlockDelegateFunction(this.StructPointer);
+        public D3DRESULT BeginStateBlock() => (D3DRESULT)BeginStateBlockDelegateFunction(this.StructPointer);
 
         public D3DRESULT EndStateBlock(out int token) {
             int ptrToken;
@@ -349,7 +446,7 @@ namespace Furball.Lanugo {
 
             token = ptrToken;
 
-            return (D3DRESULT) ret;
+            return (D3DRESULT)ret;
         }
 
         public D3DRESULT CaptureStateBlock(int token) => (D3DRESULT)CaptureStateBlockDelegateFunction(this.StructPointer, token);
@@ -361,7 +458,7 @@ namespace Furball.Lanugo {
 
             token = ptrToken;
 
-            return (D3DRESULT) ret;
+            return (D3DRESULT)ret;
         }
 
         public uint GetAvailableTextureMem() => GetAvailableTextureMemDelegateFunction(this.StructPointer);
@@ -377,7 +474,7 @@ namespace Furball.Lanugo {
 
             deviceCaps = caps;
 
-            return (D3DRESULT) ret;
+            return (D3DRESULT)ret;
         }
 
         public D3DRESULT GetDisplayMode(out D3DDISPLAYMODE displayMode) {
@@ -387,7 +484,7 @@ namespace Furball.Lanugo {
 
             displayMode = outDisplayMode;
 
-            return (D3DRESULT) ret;
+            return (D3DRESULT)ret;
         }
 
         public void GetGammaRamp(out D3DGAMMARAMP gammaRamp) {
@@ -405,7 +502,7 @@ namespace Furball.Lanugo {
 
             light = ptrLight;
 
-            return (D3DRESULT) ret;
+            return (D3DRESULT)ret;
         }
 
         public D3DRESULT GetLightEnable(int index, out bool enabled) {
@@ -415,7 +512,7 @@ namespace Furball.Lanugo {
 
             enabled = ptrEnabled == 1;
 
-            return (D3DRESULT) ret;
+            return (D3DRESULT)ret;
         }
 
         public D3DRESULT GetMaterial(out D3DMATERIAL8 material) {
@@ -425,7 +522,7 @@ namespace Furball.Lanugo {
 
             material = ptrMaterial;
 
-            return (D3DRESULT) ret;
+            return (D3DRESULT)ret;
         }
 
         public D3DRESULT GetPaletteEntries(uint paletteNumber, out D3DPALETTEENTRY paletteEntry) {
@@ -435,7 +532,7 @@ namespace Furball.Lanugo {
 
             paletteEntry = ptrEntry;
 
-            return (D3DRESULT) ret;
+            return (D3DRESULT)ret;
         }
 
         public D3DRESULT CreateVertexBuffer(uint size, D3DBUFFERUSAGE usage, D3DFVF bufferFormat, D3DPOOL pool, out IDirect3DVertexBuffer8 buffer) {
@@ -445,14 +542,43 @@ namespace Furball.Lanugo {
 
             buffer = new IDirect3DVertexBuffer8(ptrBuffer);
 
-            return (D3DRESULT) ret;
+            return (D3DRESULT)ret;
         }
 
         public D3DRESULT SetStreamSource(uint streamNumber, IDirect3DVertexBuffer8 data, uint stride) => (D3DRESULT)SetStreamSourceDelegateFunction(this.StructPointer, streamNumber, data.BufferPointer, stride);
 
         public D3DRESULT DrawPrimitive(D3DPRIMITIVETYPE primitiveType, uint startVertex, uint primitiveCount) => (D3DRESULT)DrawPrimitiveDelegateFunction(this.StructPointer, primitiveType, startVertex, primitiveCount);
 
-        public D3DRESULT SetVertexShader(int handle) => (D3DRESULT)SetVertexShaderDelegateFunction(this.StructPointer,          handle);
-        public D3DRESULT SetVertexShader(D3DFVF bufferFormat) => (D3DRESULT)SetVertexShaderDelegateFunction(this.StructPointer, (int) bufferFormat);
+        public D3DRESULT SetVertexShader(int handle) => (D3DRESULT)SetVertexShaderDelegateFunction(this.StructPointer, handle);
+
+        public D3DRESULT SetVertexShader(D3DFVF bufferFormat) => (D3DRESULT)SetVertexShaderDelegateFunction(this.StructPointer, (int)bufferFormat);
+
+        public D3DRESULT TestCooperativeLevel() => (D3DRESULT)TestCooperativeLevelDelegateFunction(this.StructPointer);
+
+        public D3DRESULT ResourceManagerDiscardBytes(int bytes) => (D3DRESULT)ResourceManagerDiscardBytesDelegateFunction(this.StructPointer, bytes);
+
+        public D3DRESULT GetDirect3D(out IDirect3D8* direct3D8) {
+            IDirect3D8* ptrD3d;
+
+            int ret = GetDirect3DDelegateFunction(this.StructPointer, &ptrD3d);
+
+            direct3D8 = ptrD3d;
+
+            return (D3DRESULT)ret;
+        }
+
+        public D3DRESULT GetCreationParameters(out D3DDEVICE_CREATION_PARAMETERS parameters) {
+            D3DDEVICE_CREATION_PARAMETERS ptrParameters = default;
+
+            int ret = GetCreationParametersDelegateFunction(this.StructPointer, &ptrParameters);
+
+            parameters = ptrParameters;
+
+            return (D3DRESULT)ret;
+        }
+
+        public D3DRESULT SetCursorProperties(uint xHotSpot, uint yHotSpot, IDirect3DSurface8 cursorBitmap) => (D3DRESULT)SetCursorPropertiesDelegateFunction(this.StructPointer, xHotSpot, yHotSpot, cursorBitmap.SurfacePointer);
+
+        public void SetCursorPosition(uint x, uint y, int flags) { SetCursorPositionDelegateFunction(this.StructPointer, x, y, flags); }
     }
 }

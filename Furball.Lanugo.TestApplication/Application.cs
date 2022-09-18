@@ -135,7 +135,7 @@ namespace Furball.Lanugo.TestApplication {
                 this._frames     = 0;
             }
 
-            this._device.Clear(D3DCLEAR.D3DCLEAR_TARGET, D3DCOLOR.FromArgb(255, 0, 0, 0));
+            this._device.Clear(D3DCLEAR.D3DCLEAR_TARGET | D3DCLEAR.D3DCLEAR_STENCIL | D3DCLEAR.D3DCLEAR_ZBUFFER, D3DCOLOR.FromArgb(255, 0, 0, 0));
 
             this._device.BeginScene();
 
